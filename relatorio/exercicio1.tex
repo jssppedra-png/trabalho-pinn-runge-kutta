@@ -1,147 +1,66 @@
-% Seção do exercício 1, para ser incluída no relatório do grupo com \input{exercicio1}.
-% Todos os números vêm de ../resultados/numeros.tex (gerado por exercicio1.py): nenhum é digitado à mão.
-% As figuras e a tabela vêm de ../resultados/ (também geradas por exercicio1.py).
+% Seção do exercício 1 (versão curta, cerca de 2 páginas), para o relatório do grupo: \input{exercicio1}.
+% Todos os números vêm de ../resultados/numeros.tex e todas as figuras e tabelas de ../resultados/,
+% gerados por exercicio1.py: nenhum número é digitado à mão. A versão longa está em exercicio1_completo.tex.
 
 \section{Exercício 1: PINN mínima versus Runge--Kutta adaptativo}
 
-\subsection{Formulação}
-
-Consideramos o problema de valor inicial $y'(t) = f(t, y)$, $y(a) = y_0$, $t \in [a, b]$, com $y$ escalar ou vetorial.
-
-\paragraph{PINN.} Seguindo Raissi, Perdikaris e Karniadakis~\cite{raissi2019}, a solução é aproximada por uma rede neural $y_\theta(t) = N_\theta(s)$, com $s = (t-a)/(b-a) \in [0,1]$,
-duas camadas ocultas de 32 neurônios e ativação $\tanh$. Os parâmetros $\theta$ minimizam
+\paragraph{Formulação.} Para $y' = f(t,y)$, $y(a) = y_0$, $t \in [a,b]$, a PINN~\cite{raissi2019} aproxima
+$y_\theta(t) = N_\theta(s)$, $s = (t-a)/(b-a)$, com duas camadas ocultas de 32 neurônios ($\tanh$), minimizando
 \begin{equation}
   L(\theta) = \frac{1}{N}\sum_{j=1}^{N} \big\| y_\theta'(t_j) - f\big(t_j, y_\theta(t_j)\big) \big\|^2
-            + \lambda\, \big\| y_\theta(a) - y_0 \big\|^2 ,
+            + \lambda\, \big\| y_\theta(a) - y_0 \big\|^2
   \label{eq:perda}
 \end{equation}
-em $N = 200$ pontos de colocação $t_j$ igualmente espaçados. A derivada $y_\theta'$ é calculada por diferenciação
-automática (exata para a rede, sem diferenças finitas). Usamos Adam com taxa $10^{-3}$, $\lambda = 1$ e 5 mil iterações,
-salvo indicação. Testamos ainda duas formas de impor a condição inicial: $\lambda = 100$, e a forma ``amarrada''
-$y_\theta(t) = y_0 + s\,N_\theta(s)$, que satisfaz $y_\theta(a) = y_0$ por construção. Nada em \eqref{eq:perda} controla
-o erro da solução: o erro final depende apenas de quão bem a otimização (não convexa) desce $L$.
-
-\paragraph{RK45.} O método de Dormand e Prince~\cite{dormand1980} calcula em cada passo $h$ duas aproximações, de ordens 5 e 4, com as mesmas
-seis avaliações de $f$. A diferença entre elas estima o erro local, que é comparado com
-$\mathrm{atol} + \mathrm{rtol}\,|y|$; se a estimativa passa do limite, o passo é refeito com $h$ menor, e se fica folgada,
-o próximo passo cresce, na proporção $(\text{tolerância}/\text{erro})^{1/5}$. A tolerância controla, portanto, o erro
-\emph{de cada passo}, não o erro global, que acumula ao longo dos passos. Usamos \texttt{scipy.integrate.solve\_ivp}
-com $\mathrm{rtol} = \mathrm{atol} = 10^{-10}$.
-
-\paragraph{Métricas.} Para os dois métodos: (a) erro máximo
-$E = \max_{i,k} |\hat y_k(\tau_i) - y_k(\tau_i)|$ numa grade de 1000 pontos $\tau_i$ igualmente espaçados, sobre todas as
-componentes $k$, contra a mesma solução de referência; (b) tempo de parede no mesmo computador e no mesmo processo
-(CPU, \ThreadsTorch{} threads do PyTorch \VersaoTorch; SciPy \VersaoScipy); o tempo do RK45, por ser da ordem de
-milissegundos, é a mediana de \RepeticoesTempoRK{} execuções; (c) número de avaliações de $f$. Na PINN contamos $N$
-avaliações por iteração, o que \emph{favorece} a PINN, pois ignora o custo da rede e da retropropagação. Seguindo
-McGreivy e Hakim~\cite{mcgreivy2024}, além do ponto com tolerância $10^{-10}$ traçamos a curva custo $\times$ precisão do
-RK45 para tolerâncias de \ToleranciaMaxima{} a \ToleranciaMinima{}, e verificamos se a PINN fica acima ou abaixo dela.
-A semente aleatória é fixada uma única vez (\Semente) no início do script.
-
-\subsection{Problemas}
-
-\begin{enumerate}
-  \item[(i)] $y' = -50y$, $y(0) = 1$, $t \in [0,1]$; solução $e^{-50t}$ (decaimento rápido).
-  \item[(ii)] $y' = \cos(20t)$, $y(0) = 0$, $t \in [0,1]$; solução $\sin(20t)/20$ (oscilação rápida).
-  \item[(iii)] Predador--presa de Lotka--Volterra, $c' = c - cr$, $r' = -r + cr$, $c(0) = 2$, $r(0) = 1$, $t \in [0,10]$
-        (coelhos $c$ e raposas $r$, em milhares). Não rígido, com dois ciclos completos no intervalo. Sem solução em forma
-        fechada, usamos como referência o DOP853 com tolerância $10^{-13}$, conferido contra o método Radau
-        (diferença máxima \DifRefRadau) e pela quantidade conservada $V = c - \ln c + r - \ln r$ (variação máxima
-        \VariacaoInvariante), ambas muito abaixo dos erros medidos.
-\end{enumerate}
-
-\subsection{Resultados}
+em $N = 200$ pontos de colocação, com $y_\theta'$ por diferenciação automática, Adam (taxa $10^{-3}$), $\lambda = 1$ e
+5 mil iterações. O RK45 de Dormand e Prince~\cite{dormand1980} estima o erro local de cada passo pela diferença entre as
+soluções de ordens 4 e 5 e ajusta o passo para mantê-lo abaixo de $\mathrm{rtol} = \mathrm{atol} = 10^{-10}$. Nada em
+\eqref{eq:perda} controla o erro da solução: ele depende só de quão bem a otimização desce $L$. Comparamos
+(i) $y' = -50y$, $y(0) = 1$; (ii) $y' = \cos(20t)$, $y(0) = 0$, ambos em $[0,1]$; e (iii) Lotka--Volterra
+$c' = c - cr$, $r' = -r + cr$, $(c,r)(0) = (2,1)$, $t \in [0,10]$, cuja referência é o DOP853 com tolerância
+$10^{-13}$ (diferença para o Radau: \DifRefRadau). Seguindo McGreivy e Hakim~\cite{mcgreivy2024}, os dois métodos usam
+a mesma régua (erro máximo em 1000 pontos, sobre todas as componentes), o mesmo computador e o mesmo processo, e
+traçamos a curva custo $\times$ precisão do RK45 para tolerâncias de \ToleranciaMaxima{} a \ToleranciaMinima. Na PINN,
+contamos $N$ avaliações de $f$ por iteração, o que a favorece. A semente é fixada uma única vez.
 
 \begin{table}[ht]
   \centering
-  \caption{Erro máximo, tempo e avaliações de $f$. Mesma régua, mesmo computador, mesma referência.}
+  \caption{Erro máximo, tempo e avaliações de $f$.}
   \label{tab:ex1}
   \resizebox{\linewidth}{!}{\input{../resultados/tabela.tex}}
 \end{table}
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=\linewidth]{fig2_custo_precisao.png}
-  \caption{Custo $\times$ precisão (abaixo e à esquerda é melhor). Linha: RK45 com tolerâncias de \ToleranciaMaxima{} a
-  \ToleranciaMinima; estrela: tolerância $10^{-10}$; pontos vermelhos: PINNs.}
+  \includegraphics[width=\linewidth]{fig5_custo_compacta.png}
+  \caption{Custo $\times$ precisão (abaixo e à esquerda é melhor): curva do RK45 para várias tolerâncias e pontos
+  das PINNs.}
   \label{fig:custo}
 \end{figure}
 
-A Tabela~\ref{tab:ex1} e a Figura~\ref{fig:custo} respondem à pergunta central para este tipo de problema: a PINN não
-iguala o RK45. Com o orçamento padrão de 5 mil iterações ($\AvalPINNOscilante$ avaliações de $f$), ela falha em (i) e
-(iii) (erros \ErroPINNRigido{} e \ErroPINNCoelhos) e acerta apenas (ii) (erro \ErroPINNOscilante), enquanto o RK45
-atinge \ErroRKRigido, \ErroRKOscilante{} e \ErroRKCoelhos{} com no máximo \AvalRKCoelhos{} avaliações e
-\TempoRKCoelhos. Mesmo comparando a melhor PINN de cada problema (com $\lambda = 100$ em (i), a padrão em (ii) e a de
-20 mil iterações em (iii)) com o RK45 de tolerância $10^{-10}$, a PINN gasta de \RazaoAvalMin{} a \RazaoAvalMax{} vezes
-mais avaliações de $f$ e tem erro de \RazaoErroMin{} a \RazaoErroMax{} vezes maior. Na Figura~\ref{fig:custo}, todo
-ponto da PINN fica acima e à direita da curva do RK45. Lida na horizontal, a figura diz quanto o RK45 precisaria gastar
-para errar tanto quanto a melhor PINN: \AvalRKMesmoErroRigido, \AvalRKMesmoErroOscilante{} e
-\AvalRKMesmoErroCoelhos{} avaliações em (i), (ii) e (iii), contra \AvalPINNOscilante{} ou mais da PINN.
+\paragraph{Resultados.} A PINN não iguala o RK45 (Tabela~\ref{tab:ex1}, Figura~\ref{fig:custo}). Com 5 mil iterações
+(\AvalPINNOscilante{} avaliações), ela falha em (i) e (iii) (erros \ErroPINNRigido{} e \ErroPINNCoelhos) e acerta só
+(ii) (\ErroPINNOscilante); o RK45 atinge \ErroRKRigido, \ErroRKOscilante{} e \ErroRKCoelhos{} com no máximo
+\AvalRKCoelhos{} avaliações. Mesmo a melhor PINN de cada problema gasta de \RazaoAvalMin{} a \RazaoAvalMax{} vezes mais
+avaliações e erra de \RazaoErroMin{} a \RazaoErroMax{} vezes mais; para errar tanto quanto ela, o RK45 precisaria de só
+\AvalRKMesmoErroRigido, \AvalRKMesmoErroOscilante{} e \AvalRKMesmoErroCoelhos{} avaliações.
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=\linewidth]{fig1_solucoes.png}
-  \caption{Solução de referência (tracejado), passos do RK45 (pontos) e PINN com 5 mil iterações (linha cheia).}
-  \label{fig:solucoes}
-\end{figure}
+\paragraph{Análise de erro.} \emph{(i) A condição inicial é só uma penalidade.} A constante $y \equiv 0$ tem resíduo
+nulo e paga só $L = 1$. Já $y = e^{-kt}$, que respeita $y(0) = 1$, tem resíduo $(50-k)e^{-kt}$ e
+$L(k) \approx (50-k)^2/(2k)$, menor que 1 apenas para $k \in (51-\sqrt{101},\, 51+\sqrt{101}) \approx (41, 61)$: fora
+dessa faixa estreita, honrar a condição inicial custa mais que ignorá-la, e a otimização para no atalho
+($L \approx \MultaPINNRigido$). Com $\lambda = 100$ o erro cai para \ErroPINNRigidoPeso; impondo a condição por
+construção, $y_\theta = y_0 + s\,N_\theta(s)$, ela cai só para \ErroPINNRigidoAmarrada, pois a rede tem dificuldade em
+representar a queda abrupta. Falha análoga aparece nos problemas de reação rápida de Krishnapriyan et
+al.~\cite{krishnapriyan2021} (exercício 2). \emph{(ii) Viés espectral.} A rede aprende primeiro oscilações lentas e só
+depois a frequência correta~\cite{rahaman2019}; converge, mas a perda final (\MultaPINNOscilante) é muito menor que o
+erro: perda pequena não garante solução precisa. \emph{(iii) Causalidade.} O equilíbrio $(1,1)$ zera o resíduo, como o
+zero em (i). Como o resíduo é local, a informação da condição inicial só se propaga durante o treino, da esquerda para
+a direita~\cite{wang2024causality}; onde ainda não chegou, a solução se acomoda no equilíbrio. Com 20 mil iterações
+(\TempoPINNCoelhosLongo) o erro cai para \ErroPINNCoelhosLongo. O RK45 não sofre de nenhum dos três problemas: controla
+o passo e avança no tempo a partir da condição inicial.
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.56\linewidth]{fig3_remedios_rigido.png}\hfill
-  \includegraphics[width=0.40\linewidth]{fig4_fase_coelhos_raposas.png}
-  \caption{Esquerda: problema (i) com a PINN original e os dois remédios para a condição inicial. Direita: problema
-  (iii) no plano de fase; com 5 mil iterações a PINN espirala para o equilíbrio $(1,1)$ em vez de seguir o ciclo.}
-  \label{fig:falhas}
-\end{figure}
-
-\subsection{Análise de erro}
-
-\paragraph{(i) A condição inicial é só uma penalidade.} A função constante $y \equiv 0$ tem resíduo nulo em todos os
-pontos e paga apenas a penalidade inicial, $L = 1$. Para ver por que a rede prefere esse mínimo local, considere a
-família $y = e^{-kt}$, que satisfaz a condição inicial. Seu resíduo é $(50-k)e^{-kt}$ e, aproximando a média em
-\eqref{eq:perda} pela integral,
-\begin{equation}
-  L(k) \approx \int_0^1 (50-k)^2 e^{-2kt}\,dt = \frac{(50-k)^2 (1 - e^{-2k})}{2k} \approx \frac{(50-k)^2}{2k}.
-\end{equation}
-A condição $L(k) < 1$ equivale a $k^2 - 102k + 2500 < 0$, isto é, $k \in (51 - \sqrt{101},\ 51 + \sqrt{101})
-\approx (41, 61)$. Fora dessa faixa estreita, honrar a condição inicial custa mais que ignorá-la: com $k = 10$, por
-exemplo, $L \approx 80$. A otimização por gradiente, partindo de pesos pequenos, encontra primeiro o mínimo $y \equiv 0$
-(Figura~\ref{fig:solucoes}, esquerda) e a perda estaciona em $\MultaPINNRigido$. Aumentar o peso para $\lambda = 100$
-torna o atalho caro e leva ao erro \ErroPINNRigidoPeso. A forma amarrada elimina o atalho, mas a rede precisa
-representar $N_\theta(s) = (e^{-50s} - 1)/s$, que tem derivada grande perto de $s = 0$; com o mesmo orçamento ela
-desce devagar demais (erro \ErroPINNRigidoAmarrada, Figura~\ref{fig:falhas}). O RK45 trata o mesmo problema reduzindo o
-passo no início e aumentando-o depois (Figura~\ref{fig:solucoes}): é exatamente o controle de passo que falta à PINN.
-Esta falha é a versão em uma variável dos problemas de reação rápida estudados por Krishnapriyan et
-al.~\cite{krishnapriyan2021}, tema do exercício 2.
-
-\paragraph{(ii) Viés espectral.} Durante o treino, a rede aprende primeiro curvas suaves e oscilações mais lentas que a
-verdadeira, e só depois a frequência correta, comportamento conhecido como viés espectral~\cite{rahaman2019}. O
-problema não tem armadilha de condição inicial, e a PINN converge (erro \ErroPINNOscilante), mas a perda final
-(\MultaPINNOscilante) é muito menor que o erro: perda pequena não garante solução precisa. Note que a amplitude da
-solução é $0{,}05$, de modo que o erro relativo à amplitude é cerca de vinte vezes o erro absoluto.
-
-\paragraph{(iii) Causalidade e o equilíbrio como atalho.} O ponto $(c, r) = (1, 1)$ é um equilíbrio: ali $f = 0$, de modo
-que a função constante $(1,1)$ tem resíduo nulo e paga só a penalidade inicial. Como cada termo do resíduo em
-\eqref{eq:perda} é local, a informação da condição inicial só se propaga ao longo do treino, da esquerda para a direita;
-onde ela ainda não chegou, a rede se acomoda perto do equilíbrio. Com 5 mil iterações, a solução está correta só no
-começo do intervalo e espirala para $(1,1)$ (Figura~\ref{fig:falhas}, direita), com erro \ErroPINNCoelhos, embora a
-perda final seja pequena (\MultaPINNCoelhos). Com 20 mil iterações (\TempoPINNCoelhosLongo) o erro cai para
-\ErroPINNCoelhosLongo. Esse modo de falha por violação de causalidade é descrito por Wang, Sankaran e
-Perdikaris~\cite{wang2024causality}. O RK45 respeita a causalidade por construção: avança no tempo a partir da condição
-inicial.
-
-\paragraph{Limites da comparação.} (a) Usamos uma única semente e não ajustamos hiperparâmetros (largura, taxa,
-número de pontos); outras escolhas podem melhorar a PINN, mas não mudam a ordem de grandeza da diferença vista na
-Figura~\ref{fig:custo}. (b) O PyTorch calcula em precisão simples (cerca de 7 algarismos), o que limita o erro
-atingível pela PINN muito acima de $10^{-10}$. (c) O RK45 excede ligeiramente a tolerância pedida no erro global
-(\ErroRKOscilante{} e \ErroRKCoelhos{} contra $10^{-10}$), como esperado de um controle de erro local. (d) Os três
-problemas são problemas diretos, com equação e condição inicial conhecidas; não testamos as situações em que a PINN
-pode ser vantajosa (problemas inversos, dados esparsos ou ruidosos), discutidas no exercício 3.
-
-\subsection{Conclusão do exercício 1}
-
-Para problemas de valor inicial bem postos, a PINN mínima não iguala o RK45 em custo $\times$ precisão: perde nas duas
-coisas ao mesmo tempo, por várias ordens de grandeza. Sua precisão é limitada pela otimização, e os três modos de
-falha observados (a condição inicial vencida pela penalidade, o viés espectral e a violação de causalidade) decorrem de
-a perda \eqref{eq:perda} não ter controle de passo nem noção de ordem do tempo. Os remédios testados (peso maior,
-condição amarrada, mais iterações) melhoram a PINN, mas a deixam longe da curva do RK45.
+\paragraph{Limites e conclusão.} Usamos uma semente, sem ajuste de hiperparâmetros, e o PyTorch em precisão simples
+(cerca de 7 algarismos); o RK45 excede um pouco a tolerância no erro global, como esperado de um controle local.
+Nenhum desses limites muda a ordem de grandeza da Figura~\ref{fig:custo}. Para problemas de valor inicial bem postos,
+a PINN mínima perde do RK45 em custo e em precisão ao mesmo tempo; os problemas inversos e de dados esparsos, em que
+ela pode compensar, ficam para o exercício 3.

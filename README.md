@@ -14,7 +14,14 @@ consegue igualar um Runge–Kutta adaptativo em custo × precisão?
 | (ii) | y′ = cos(20t), y(0) = 0 | t ∈ [0, 1] |
 | (iii) | coelhos e raposas (Lotka–Volterra): c′ = c − cr, r′ = −r + cr, c(0) = 2, r(0) = 1 | t ∈ [0, 10] |
 
-## Como rodar (um comando, sem intervenção)
+## Como rodar no Google Colab (sem instalar nada)
+
+Abra o notebook [`exercicio1_colab.ipynb`](https://colab.research.google.com/github/jssppedra-png/trabalho-pinn-runge-kutta/blob/main/exercicio1_colab.ipynb)
+no Colab e use *Ambiente de execução → Executar tudo*. Ele baixa o repositório, roda `exercicio1.py` e mostra a tabela
+e as figuras. Enquanto o repositório for privado, o Colab pede autorização para acessar o GitHub, e o notebook precisa de
+um token de leitura guardado nos *Secrets* do Colab com o nome `GITHUB_TOKEN`.
+
+## Como rodar no próprio computador (um comando, sem intervenção)
 
 ```bash
 python -m pip install -r requirements.txt
@@ -28,6 +35,7 @@ Leva cerca de 2 minutos numa CPU comum e gera tudo em `resultados/`:
 | `tabela.md`, `tabela.csv`, `tabela.tex` | Erro máximo, tempo e avaliações de f de cada método |
 | `fig1_solucoes.png` | Resposta certa, passos do RK45 e PINN nos três problemas |
 | `fig2_custo_precisao.png` | Custo × precisão: curva do RK45 (tolerâncias 10⁻³ a 10⁻¹²) e pontos das PINNs |
+| `fig5_custo_compacta.png` | A mesma comparação em uma linha só, usada no relatório curto |
 | `fig3_remedios_rigido.png` | Problema (i): a falha da PINN e dois remédios para a condição inicial |
 | `fig4_fase_coelhos_raposas.png` | Problema (iii) no plano de fase |
 | `numeros.tex` | Todos os números citados no relatório, como comandos LaTeX |
@@ -48,10 +56,11 @@ Leva cerca de 2 minutos numa CPU comum e gera tudo em `resultados/`:
 | Caminho | O que é |
 |---|---|
 | `exercicio1.py` | Script oficial: roda tudo e gera tabelas, figuras e números |
+| `exercicio1_colab.ipynb` | Notebook para o Google Colab: baixa o repositório, roda o script e mostra os resultados |
 | `problemas.py` | Ficha dos três problemas (regra, ponto de partida, intervalo, resposta certa) e a régua de erro |
 | `rk.py` | RK45 do SciPy (referência). Sozinho: `python rk.py oscilante` |
 | `pinn.py` | A PINN, implementada pela equipe em PyTorch. Sozinho: `python pinn.py oscilante` |
-| `relatorio/` | Texto do exercício 1 em LaTeX (`exercicio1.tex` para o relatório do grupo; `exercicio1_avulso.tex` compila sozinho) |
+| `relatorio/` | Texto do exercício 1 em LaTeX: `exercicio1.tex` (versão curta, cerca de 2 páginas, para o relatório do grupo), `exercicio1_completo.tex` (versão longa, para consulta) e `exercicio1_avulso.tex` (compila a curta sozinha, com capa e referências, gerando `exercicio1_avulso.pdf`) |
 | `apresentacao/` | Cópia dos slides e o script que gera os dados das animações. A versão oficial é a publicada (link abaixo) |
 | `estudo/` | Exemplos didáticos em Python puro, usados para estudar o tema. Não fazem parte da entrega |
 

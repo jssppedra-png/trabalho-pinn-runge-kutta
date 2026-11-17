@@ -175,6 +175,29 @@ def figura_custo_precisao(res):
     plt.close(fig)
 
 
+def figura_custo_compacta(res):
+    """Figura 5: versão compacta da figura 2 (só avaliações de f), para o relatório curto."""
+    fig, eixos = plt.subplots(1, 3, figsize=(12, 3.3))
+    marcadores = ["s", "^", "D", "v"]
+    for ax, nome in zip(eixos, PROBLEMAS):
+        curva = res["rk_curva"][nome]
+        ax.loglog([c["aval_f"] for c in curva], [c["erro"] for c in curva], "o-", ms=4, color="tab:blue",
+                  label="RK45, tolerâncias 1e-3 a 1e-12")
+        r10 = res["rk"][nome]
+        ax.loglog(r10["aval_f"], r10["erro"], "*", ms=12, color="tab:blue", label="RK45, tolerância 1e-10")
+        pinns = [res["pinn"][i] for i, prob, _, _ in TREINOS_PINN if prob == nome]
+        for m, pn in zip(marcadores, pinns):
+            ax.loglog(pn["aval_f"], pn["erro"], m, ms=8, color="tab:red", alpha=0.85, label=pn["descricao"])
+        ax.set_title(ROTULO[nome], fontsize=10)
+        ax.set_xlabel("avaliações de f")
+        ax.grid(True, which="major", alpha=0.3)
+        ax.legend(fontsize=6, loc="lower left")
+    eixos[0].set_ylabel("erro máximo")
+    fig.tight_layout()
+    fig.savefig(os.path.join(PASTA, "fig5_custo_compacta.png"), dpi=200)
+    plt.close(fig)
+
+
 def figura_remedios(res):
     """Figura 3: questão (i) com a PINN original e os dois remédios para o ponto de partida."""
     nome = "rigido"
@@ -319,6 +342,7 @@ if __name__ == "__main__":
     linhas = salvar_tabelas(res)
     figura_solucoes(res)
     figura_custo_precisao(res)
+    figura_custo_compacta(res)
     figura_remedios(res)
     figura_fase(res)
     salvar_numeros_tex(res)
