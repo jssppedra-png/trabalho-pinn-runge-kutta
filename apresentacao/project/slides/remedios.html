@@ -1,0 +1,41 @@
+<section id="remedios" data-transition="fade">
+<x-embed style="position:absolute;left:128px;top:320px;width:1040px;height:630px;"><!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0;overflow:hidden;background:transparent"><canvas id="c"></canvas><script>
+const c=document.getElementById('c'),g=c.getContext('2d');let W,H;
+function rs(){const d=2;W=innerWidth;H=innerHeight;c.width=W*d;c.height=H*d;c.style.width=W+'px';c.style.height=H+'px';g.setTransform(d,0,0,d,0,0)}rs();addEventListener('resize',rs);
+const F='system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif';
+const PE=[0.999,0.86,0.738,0.633,0.543,0.466,0.401,0.346,0.299,0.258,0.224,0.194,0.168,0.146,0.126,0.109,0.094,0.081,0.07,0.06,0.052,0.044,0.038,0.032,0.027,0.023,0.019,0.016,0.014,0.011,0.009,0.008,0.006,0.005,0.004,0.003,0.002,0.002,0.001,0.001,0,0,0,0,-0.001,-0.001,-0.001,-0.001,-0.001,-0.001,-0.001,-0.001,-0.001,-0.001,-0.001,-0.001,-0.001,-0.001,0,0,0,0,0,0,0,0,0];
+const AM=[1,0.929,0.86,0.791,0.724,0.659,0.595,0.533,0.474,0.418,0.364,0.314,0.268,0.226,0.188,0.154,0.124,0.099,0.078,0.06,0.046,0.035,0.026,0.02,0.015,0.012,0.01,0.008,0.008,0.007,0.007,0.007,0.007,0.008,0.008,0.008,0.008,0.007,0.007,0.007,0.007,0.006,0.006,0.005,0.004,0.004,0.003,0.003,0.002,0.001,0.001,0,-0.001,-0.001,-0.002,-0.002,-0.003,-0.003,-0.003,-0.004,-0.004,-0.004,-0.004,-0.005,-0.005,-0.005,-0.005];
+const OR=[0.008,0.007,0.006,0.006,0.005,0.005,0.004,0.004,0.003,0.003,0.002];
+const cl=a=>Math.max(0,Math.min(1,a)),dt=3/999;
+const L=80,R=24,T=60,B=80,TM=0.2;const X=t=>L+(W-L-R)*t/TM,Y=y=>T+(H-T-B)*(1.06-y)/1.14;
+function linha(ys,step,cor,lw,dash,p){const n=Math.floor(p*(ys.length-1));if(n<1)return;g.setLineDash(dash);g.strokeStyle=cor;g.lineWidth=lw;g.lineCap='round';g.lineJoin='round';g.beginPath();
+for(let i=0;i<=n;i++){i?g.lineTo(X(i*step),Y(ys[i])):g.moveTo(X(0),Y(ys[0]))}g.stroke();g.setLineDash([])}
+function draw(s){g.clearRect(0,0,W,H);
+g.strokeStyle='#C9C2B3';g.lineWidth=2;g.beginPath();g.moveTo(L,T-20);g.lineTo(L,H-B);g.lineTo(W-R,H-B);g.stroke();
+g.fillStyle='#4A5568';g.font='24px '+F;g.textAlign='right';g.fillText('1',L-12,Y(1)+8);g.fillText('0',L-12,Y(0)+8);
+g.textAlign='center';for(const t of [0,0.05,0.1,0.15,0.2])g.fillText(String(t).replace('.',','),X(t),H-B+34);g.fillText('tempo t',(L+W-R)/2,H-12);
+const ex=[];for(let i=0;i<=200;i++)ex.push(Math.exp(-50*TM*i/200));linha(ex,TM/200,'#8A8F98',3,[10,8],1);
+linha(OR,0.02,'#E0662F',6,[],cl((s-0.3)/1.2));
+linha(AM,dt,'#8E6BC9',6,[3,10],cl((s-1.8)/2));
+linha(PE,dt,'#2E8B57',6,[18,9],cl((s-4.2)/2));
+g.font='600 26px '+F;g.textAlign='left';
+if(s>1.4){g.globalAlpha=cl((s-1.4)/0.5);g.fillStyle='#A8441A';g.fillText('original: fica no zero',X(0.1),Y(0)-24)}
+if(s>3.8){g.globalAlpha=cl((s-3.8)/0.5);g.fillStyle='#6A4AA6';g.fillText('amarrada: desce devagar demais',X(0.05),Y(0.64))}
+if(s>6.2){g.globalAlpha=cl((s-6.2)/0.5);g.fillStyle='#2E6B47';g.fillText('fiscal × 100: em cima da resposta',X(0.06),Y(0.22))}
+g.globalAlpha=1}
+let t0=null,lt=0;function fr(ts){if(t0===null||ts-lt>1500||ts-t0>12000)t0=ts;lt=ts;draw((ts-t0)/1000);requestAnimationFrame(fr)}requestAnimationFrame(fr);
+</script></body></html></x-embed>
+<div class="cabeca">
+<p class="olho a0">Questão (i) · Dá para consertar?</p>
+<h2 class="a1">Dois remédios para o ponto de partida</h2>
+</div>
+<div class="corpo">
+<div class="palco"></div>
+<div class="coluna">
+<div class="cartao pinn a2"><p class="rotulo">Original</p><p class="num">0,99</p><p class="leg">erro máximo: ignora o ponto de partida</p></div>
+<div class="cartao a3" style="border-top:8px solid #2E8B57;"><p class="rotulo" style="color:#2E6B47;">Fiscal do início × 100</p><p class="num">0,0062</p><p class="leg">o atalho passa a custar 100 em vez de 1</p></div>
+<div class="cartao a4" style="border-top:8px solid #8E6BC9;"><p class="rotulo" style="color:#6A4AA6;">Curva amarrada no 1</p><p class="num">0,19</p><p class="leg">nunca erra o início, mas precisa de mais treino para dobrar tão rápido</p></div>
+</div>
+</div>
+<aside>Se o problema é a balança das multas, dá para consertar? Testamos dois remédios, com a mesma rede e a mesma semente. Primeiro remédio: dar mais peso ao fiscal do ponto de partida, multiplicando a multa dele por 100. Agora ignorar o início custa 100, e não 1, e a rede vai buscar a resposta certa: o erro cai para 0,0062, a linha verde. Segundo remédio: amarrar a curva no ponto de partida, montando a resposta como 1 mais t vezes a rede. Em t igual a zero isso dá 1 de qualquer jeito, então ela nunca erra o começo. Surpresa: a curva roxa desce devagar demais e erra 0,19, porque a rede tem dificuldade de fazer uma curva tão fechada logo no começo. Ela chega lá, mas precisa de muito mais treino. A lição: o defeito não era a rede, era a balança das multas. E mesmo consertada, a PINN continua milhões de vezes menos precisa que o Runge–Kutta.</aside>
+</section>

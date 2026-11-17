@@ -1,0 +1,32 @@
+<section id="capa" class="escuro" data-transition="fade">
+<x-embed style="position:absolute;left:128px;top:600px;width:1664px;height:352px;"><!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0;overflow:hidden;background:transparent"><canvas id="c"></canvas><script>
+const c=document.getElementById('c'),g=c.getContext('2d');let W,H;
+function rs(){const d=2;W=innerWidth;H=innerHeight;c.width=W*d;c.height=H*d;c.style.width=W+'px';c.style.height=H+'px';g.setTransform(d,0,0,d,0,0)}rs();addEventListener('resize',rs);
+const P=[[50,[0.0039,0.0046,0.0054,0.0062,0.0069,0.0077,0.0084,0.0091,0.0098,0.0105,0.0112,0.0119,0.0126,0.0132,0.0139,0.0145,0.0151,0.0157,0.0163,0.0169,0.0175,0.018,0.0186,0.0191,0.0197,0.0202,0.0207,0.0212,0.0217,0.0222,0.0226,0.0231,0.0235,0.0239,0.0243,0.0247,0.0251,0.0255,0.0258,0.0262,0.0265,0.0268,0.0271,0.0274,0.0277,0.0279,0.0282,0.0284,0.0286,0.0288,0.029]],[200,[-0.0001,-0.0004,-0.0008,-0.0012,-0.0016,-0.002,-0.0025,-0.0029,-0.0033,-0.0038,-0.0042,-0.0046,-0.0049,-0.0053,-0.0056,-0.0058,-0.006,-0.0062,-0.0063,-0.0064,-0.0063,-0.0062,-0.006,-0.0058,-0.0054,-0.005,-0.0044,-0.0038,-0.003,-0.0022,-0.0012,-0.0001,0.0011,0.0024,0.0038,0.0054,0.0071,0.0089,0.0109,0.0129,0.0151,0.0174,0.0199,0.0224,0.0251,0.0279,0.0308,0.0339,0.037,0.0403,0.0437]],[500,[0.0019,0.0058,0.009,0.0115,0.0133,0.0145,0.0151,0.0151,0.0145,0.0134,0.0119,0.0099,0.0076,0.0051,0.0023,-0.0006,-0.0036,-0.0065,-0.0092,-0.0116,-0.0137,-0.0152,-0.016,-0.0161,-0.0152,-0.0133,-0.0102,-0.0059,-0.0004,0.0062,0.0137,0.0218,0.0299,0.037,0.0424,0.0447,0.043,0.0366,0.0256,0.0112,-0.0047,-0.0197,-0.0313,-0.0379,-0.0388,-0.034,-0.0241,-0.0101,0.0072,0.0269,0.0483]],[1000,[0.0002,0.0199,0.0355,0.0458,0.0493,0.0454,0.0343,0.0174,-0.0028,-0.0227,-0.0387,-0.0481,-0.0495,-0.0433,-0.0306,-0.0135,0.0053,0.0234,0.0382,0.0475,0.0497,0.0439,0.0305,0.0117,-0.0093,-0.0285,-0.0426,-0.0492,-0.0479,-0.0393,-0.0252,-0.0077,0.0108,0.0278,0.0411,0.0484,0.0483,0.0402,0.025,0.0053,-0.0155,-0.0334,-0.0455,-0.0502,-0.0471,-0.0368,-0.0211,-0.0027,0.0158,0.0323,0.0455]],[4999,[0,0.0196,0.0356,0.0462,0.0497,0.0455,0.0339,0.0167,-0.0032,-0.0225,-0.0381,-0.0476,-0.0498,-0.0442,-0.0318,-0.0143,0.0056,0.0247,0.0397,0.0483,0.0492,0.0424,0.029,0.0111,-0.0088,-0.0273,-0.0416,-0.0493,-0.0492,-0.0413,-0.0269,-0.0084,0.0114,0.0293,0.0427,0.0494,0.0483,0.0394,0.0242,0.0051,-0.0146,-0.032,-0.0443,-0.0499,-0.0477,-0.0379,-0.0219,-0.0024,0.0172,0.0338,0.0455]]];
+const cl=a=>Math.max(0,Math.min(1,a)),ez=a=>a<.5?2*a*a:1-Math.pow(-2*a+2,2)/2;
+const L=10,R=10,T=20,B=20;const X=t=>L+(W-L-R)*t,Y=y=>T+(H-T-B)*(0.5-y/0.13);
+function curva(pts,cor,lw){g.strokeStyle=cor;g.lineWidth=lw;g.lineCap='round';g.lineJoin='round';g.beginPath();
+g.moveTo(pts[0][0],pts[0][1]);for(let i=1;i<pts.length-1;i++){const mx=(pts[i][0]+pts[i+1][0])/2,my=(pts[i][1]+pts[i+1][1])/2;g.quadraticCurveTo(pts[i][0],pts[i][1],mx,my)}
+const e=pts[pts.length-1];g.lineTo(e[0],e[1]);g.stroke()}
+function draw(s){g.clearRect(0,0,W,H);
+g.globalAlpha=cl(s/0.8);g.setLineDash([12,10]);const ex=[];for(let i=0;i<=300;i++){const t=i/300;ex.push([X(t),Y(Math.sin(20*t)/20)])}
+curva(ex,'#7E8A99',3);g.setLineDash([]);g.globalAlpha=1;
+const u=ez(cl((s-1)/6))*(P.length-1),k=Math.min(P.length-2,Math.floor(u)),f=u-k;
+const pp=P[k][1].map((v,i)=>[X(i/50),Y(v*(1-f)+P[k+1][1][i]*f)]);
+g.globalAlpha=cl((s-0.6)/0.8);curva(pp,'#F08A55',7);g.globalAlpha=1;
+const n=Math.floor(cl((s-0.5)/5)*114);g.fillStyle='#6AA6F5';
+for(let i=0;i<=n;i++){const t=i/114;g.beginPath();g.arc(X(t),Y(Math.sin(20*t)/20),i===n?9:6,0,7);g.fill()}}
+let t0=null,lt=0;function fr(ts){if(t0===null||ts-lt>1500||ts-t0>13000)t0=ts;lt=ts;draw((ts-t0)/1000);requestAnimationFrame(fr)}requestAnimationFrame(fr);
+</script></body></html></x-embed>
+<div style="display:flex;flex-direction:column;gap:28px;width:1500px;">
+<p class="olho a0">Computação Científica · Trabalho em grupo · Exercício 1</p>
+<h1 class="a1">PINN versus Runge–Kutta</h1>
+<p class="texto a2" style="font-size:36px;width:1300px;">Uma rede neural informada pela física contra o RK45, em três equações, com a mesma régua.</p>
+<div class="a3" style="display:flex;flex-direction:row;gap:36px;align-items:center;">
+<p class="pequeno"><span style="color:#6AA6F5;"><b>●</b></span> Runge–Kutta (RK45): passo a passo</p>
+<p class="pequeno"><span style="color:#F08A55;"><b>━</b></span> PINN: a curva inteira, ajustada aos poucos</p>
+<p class="pequeno">José Salgado | Renan Brêttas | Heitor Morais</p>
+</div>
+</div>
+<aside>Abertura. Diga seu nome e que vai apresentar o exercício 1: a comparação direta entre uma PINN, que é uma rede neural informada pela física, e o Runge–Kutta adaptativo RK45. Aponte para a animação: os pontos azuis são o Runge–Kutta andando passo a passo sobre a resposta certa (a onda tracejada); a curva laranja é a PINN, que chuta a curva inteira e vai se ajustando durante o treino. Essas fotos são de verdade, tiradas do treino da PINN na questão 2. Ao longo da apresentação, azul é sempre Runge–Kutta e laranja é sempre PINN.</aside>
+</section>

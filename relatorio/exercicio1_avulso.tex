@@ -1,0 +1,42 @@
+% Versão avulsa do exercício 1, para compilar e revisar sozinha (o relatório do grupo usa só exercicio1.tex).
+% Antes de compilar, rode na pasta principal:   python exercicio1.py
+% Depois, nesta pasta:                          pdflatex exercicio1_avulso.tex   (duas vezes, para as referências)
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{hyperref}
+
+\graphicspath{{../resultados/}}
+\input{../resultados/numeros.tex}   % os números citados no texto, gerados pelo código
+
+\title{PINN versus Runge--Kutta\\\large Exercício 1}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\input{exercicio1}
+
+\begin{thebibliography}{9}
+\bibitem{raissi2019} M. Raissi, P. Perdikaris e G. E. Karniadakis. Physics-informed neural networks: a deep learning
+  framework for solving forward and inverse problems involving nonlinear partial differential equations.
+  \emph{Journal of Computational Physics}, 378:686--707, 2019.
+\bibitem{dormand1980} J. R. Dormand e P. J. Prince. A family of embedded Runge--Kutta formulae.
+  \emph{Journal of Computational and Applied Mathematics}, 6(1):19--26, 1980.
+\bibitem{mcgreivy2024} N. McGreivy e A. Hakim. Weak baselines and reporting biases lead to overoptimism in machine
+  learning for fluid-related partial differential equations. \emph{Nature Machine Intelligence}, 6:1256--1269, 2024.
+\bibitem{rahaman2019} N. Rahaman et al. On the spectral bias of neural networks. \emph{Proceedings of the 36th
+  International Conference on Machine Learning (ICML)}, 2019.
+\bibitem{wang2024causality} S. Wang, S. Sankaran e P. Perdikaris. Respecting causality for training physics-informed
+  neural networks. \emph{Computer Methods in Applied Mechanics and Engineering}, 421:116813, 2024.
+\bibitem{krishnapriyan2021} A. S. Krishnapriyan, A. Gholami, S. Zhe, R. M. Kirby e M. W. Mahoney. Characterizing
+  possible failure modes in physics-informed neural networks. \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, 34, 2021.
+\end{thebibliography}
+
+\end{document}

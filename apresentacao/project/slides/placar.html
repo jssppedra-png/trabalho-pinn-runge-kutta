@@ -1,0 +1,13 @@
+<section id="placar" data-transition="fade" style="background:#E9E4D8;">
+<div class="cabeca">
+<p class="olho a0">Placar final · melhor PINN de cada questão contra o RK45</p>
+<h2 class="a1">Mais cara e menos precisa, ao mesmo tempo</h2>
+</div>
+<div style="display:flex;flex-direction:row;gap:32px;margin-top:72px;">
+<div class="cartao pinn a2" style="flex:1;padding:36px 36px;gap:16px;"><p class="grande" style="font-size:96px;color:#A8441A;">1.131×</p><p class="texto" style="font-size:30px;">a 3.185 vezes mais consultas à regra</p></div>
+<div class="cartao pinn a3" style="flex:1;padding:36px 36px;gap:16px;"><p class="grande" style="font-size:96px;color:#A8441A;">6 × 10⁵</p><p class="texto" style="font-size:30px;">a 7 × 10⁷ vezes mais erro que o RK45 com tolerância 10⁻¹⁰</p></div>
+<div class="cartao rk a4" style="flex:1;padding:36px 36px;gap:16px;"><p class="grande" style="font-size:96px;color:#1D4FA3;">116–134</p><p class="texto" style="font-size:30px;">consultas bastam ao RK45 para errar tanto quanto a melhor PINN</p></div>
+</div>
+<p class="pequeno a5" style="margin-top:48px;">Todos os números vêm de <b>resultados/</b>, gerados por exercicio1.py com a semente fixada uma vez. A PINN contou só 200 consultas por iteração, o que a favorece.</p>
+<aside>O placar final, comparando a melhor PINN de cada questão com o Runge–Kutta. Primeiro número: a PINN gasta de 1.131 a 3.185 vezes mais consultas à regra. Segundo: erra de 600 mil a 70 milhões de vezes mais que o Runge–Kutta com tolerância 10 elevado a menos 10. Terceiro, o mais forte: para errar tanto quanto a melhor PINN, bastam ao Runge–Kutta entre 116 e 134 consultas, contra um milhão. Ou seja, a PINN é mais cara e menos precisa ao mesmo tempo. Detalhe de honestidade: contamos para a PINN só 200 consultas por iteração, ignorando o custo da própria rede, o que a favorece. E todos esses números saem do código, sem nada digitado à mão.</aside>
+</section>

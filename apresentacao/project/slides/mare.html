@@ -1,0 +1,49 @@
+<section id="mare" data-transition="fade">
+<x-embed style="position:absolute;left:128px;top:320px;width:1040px;height:630px;"><!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0;overflow:hidden;background:transparent"><canvas id="c"></canvas><script>
+const c=document.getElementById('c'),g=c.getContext('2d');let W,H;
+function rs(){const d=2;W=innerWidth;H=innerHeight;c.width=W*d;c.height=H*d;c.style.width=W+'px';c.style.height=H+'px';g.setTransform(d,0,0,d,0,0)}rs();addEventListener('resize',rs);
+const F='system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif';
+const S=[[0,[[0.36,0.37,0.37,0.37,0.37,0.38,0.38,0.38,0.38,0.39,0.39,0.39,0.39,0.39,0.39,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.41,0.41,0.41,0.41,0.41,0.41,0.41,0.41,0.41,0.41,0.41,0.41,0.42,0.42,0.42,0.42,0.42,0.42,0.42,0.42,0.42,0.42,0.42,0.42,0.42,0.42,0.42,0.42],[-0.13,-0.13,-0.13,-0.13,-0.14,-0.14,-0.14,-0.14,-0.14,-0.14,-0.14,-0.14,-0.14,-0.14,-0.14,-0.14,-0.14,-0.14,-0.14,-0.14,-0.14,-0.14,-0.14,-0.14,-0.14,-0.14,-0.14,-0.14,-0.15,-0.15,-0.15,-0.15,-0.14,-0.14,-0.14,-0.14,-0.14,-0.14,-0.14,-0.14,-0.14,-0.14,-0.14,-0.14,-0.14,-0.14,-0.14,-0.14,-0.14,-0.14,-0.14]]],[1000,[[1.93,1.81,1.69,1.58,1.48,1.39,1.31,1.24,1.18,1.12,1.08,1.04,1.01,0.99,0.97,0.95,0.94,0.92,0.92,0.91,0.9,0.9,0.89,0.89,0.89,0.89,0.89,0.89,0.89,0.89,0.89,0.89,0.89,0.9,0.9,0.9,0.9,0.91,0.91,0.91,0.91,0.92,0.92,0.92,0.92,0.93,0.93,0.93,0.93,0.94,0.94],[0.99,1.05,1.1,1.14,1.18,1.21,1.24,1.26,1.27,1.28,1.29,1.29,1.28,1.28,1.27,1.26,1.25,1.24,1.23,1.22,1.2,1.19,1.17,1.16,1.14,1.13,1.11,1.1,1.09,1.07,1.06,1.04,1.03,1.02,1.0,0.99,0.98,0.97,0.95,0.94,0.93,0.92,0.91,0.9,0.89,0.88,0.86,0.85,0.84,0.84,0.83]]],[2000,[[1.97,1.83,1.69,1.53,1.38,1.24,1.11,1.01,0.92,0.85,0.8,0.77,0.74,0.73,0.72,0.72,0.73,0.74,0.75,0.76,0.77,0.78,0.8,0.81,0.83,0.84,0.86,0.87,0.89,0.9,0.92,0.93,0.94,0.96,0.97,0.98,0.99,1.01,1.02,1.03,1.04,1.05,1.06,1.07,1.08,1.09,1.1,1.11,1.12,1.13,1.14],[1.01,1.15,1.3,1.43,1.53,1.6,1.62,1.61,1.57,1.52,1.46,1.39,1.32,1.26,1.2,1.15,1.1,1.06,1.03,1.0,0.97,0.95,0.93,0.92,0.91,0.9,0.89,0.89,0.88,0.88,0.88,0.88,0.88,0.88,0.88,0.89,0.89,0.89,0.9,0.9,0.91,0.91,0.92,0.92,0.93,0.93,0.93,0.94,0.94,0.95,0.95]]],[3000,[[1.99,1.92,1.79,1.62,1.4,1.18,0.97,0.81,0.7,0.63,0.58,0.56,0.56,0.58,0.6,0.63,0.66,0.7,0.73,0.77,0.8,0.83,0.86,0.89,0.92,0.94,0.96,0.97,0.99,1.0,1.01,1.02,1.03,1.04,1.05,1.05,1.06,1.06,1.06,1.07,1.07,1.07,1.07,1.07,1.07,1.07,1.07,1.07,1.07,1.07,1.07],[1.0,1.2,1.42,1.62,1.79,1.89,1.9,1.85,1.75,1.62,1.49,1.35,1.23,1.13,1.04,0.98,0.93,0.89,0.86,0.84,0.83,0.82,0.82,0.82,0.82,0.83,0.83,0.84,0.85,0.86,0.87,0.88,0.9,0.91,0.92,0.93,0.94,0.95,0.96,0.97,0.98,0.99,1.0,1.0,1.01,1.02,1.03,1.04,1.04,1.05,1.06]]],[4999,[[2.0,1.94,1.82,1.62,1.39,1.16,0.96,0.8,0.69,0.61,0.55,0.52,0.51,0.51,0.52,0.55,0.58,0.62,0.67,0.71,0.77,0.82,0.87,0.92,0.96,1.01,1.04,1.08,1.1,1.12,1.14,1.15,1.16,1.16,1.15,1.15,1.14,1.13,1.12,1.1,1.09,1.07,1.06,1.04,1.03,1.01,1.0,0.98,0.97,0.95,0.94],[1.0,1.21,1.44,1.66,1.83,1.93,1.94,1.88,1.78,1.66,1.52,1.38,1.25,1.13,1.02,0.94,0.86,0.81,0.77,0.73,0.71,0.7,0.7,0.71,0.73,0.75,0.77,0.8,0.83,0.86,0.89,0.91,0.94,0.96,0.98,1.0,1.02,1.03,1.05,1.06,1.07,1.07,1.08,1.09,1.09,1.1,1.1,1.1,1.1,1.11,1.11]]],[7500,[[2.0,1.95,1.83,1.63,1.39,1.16,0.95,0.79,0.66,0.57,0.51,0.47,0.44,0.43,0.43,0.44,0.46,0.49,0.52,0.57,0.62,0.68,0.76,0.83,0.93,1.02,1.13,1.25,1.38,1.5,1.6,1.69,1.75,1.76,1.72,1.62,1.48,1.31,1.14,0.98,0.85,0.74,0.66,0.59,0.55,0.52,0.51,0.51,0.51,0.52,0.54],[1.0,1.22,1.45,1.68,1.86,1.97,1.99,1.93,1.82,1.69,1.54,1.39,1.25,1.11,0.99,0.88,0.79,0.71,0.65,0.6,0.56,0.52,0.5,0.48,0.48,0.48,0.49,0.52,0.55,0.6,0.68,0.77,0.9,1.04,1.21,1.37,1.53,1.66,1.74,1.76,1.73,1.65,1.55,1.44,1.32,1.21,1.1,1.0,0.91,0.82,0.75]]],[9999,[[1.99,1.95,1.82,1.63,1.39,1.15,0.94,0.78,0.65,0.56,0.49,0.45,0.42,0.41,0.4,0.41,0.43,0.45,0.48,0.53,0.57,0.64,0.71,0.79,0.89,1.0,1.13,1.27,1.41,1.57,1.72,1.85,1.94,1.98,1.94,1.82,1.62,1.39,1.16,0.96,0.79,0.66,0.57,0.5,0.46,0.43,0.42,0.41,0.42,0.44,0.46],[1.0,1.22,1.45,1.69,1.87,1.98,1.99,1.94,1.83,1.69,1.54,1.38,1.24,1.1,0.98,0.87,0.78,0.69,0.62,0.56,0.52,0.48,0.45,0.43,0.41,0.41,0.42,0.43,0.47,0.52,0.59,0.69,0.82,1.0,1.21,1.44,1.67,1.85,1.96,1.98,1.93,1.82,1.69,1.54,1.39,1.24,1.11,0.98,0.88,0.78,0.7]]],[19999,[[2.0,1.96,1.83,1.63,1.39,1.16,0.95,0.78,0.65,0.56,0.49,0.45,0.42,0.41,0.41,0.41,0.43,0.45,0.48,0.53,0.58,0.64,0.71,0.8,0.89,1.0,1.13,1.27,1.42,1.57,1.72,1.86,1.96,1.99,1.96,1.83,1.64,1.4,1.17,0.96,0.79,0.66,0.56,0.5,0.46,0.43,0.41,0.41,0.41,0.43,0.45],[1.0,1.22,1.46,1.69,1.87,1.98,2.0,1.94,1.83,1.69,1.54,1.39,1.24,1.1,0.98,0.87,0.77,0.69,0.62,0.56,0.52,0.48,0.45,0.42,0.41,0.41,0.41,0.43,0.46,0.51,0.58,0.68,0.81,0.99,1.21,1.45,1.68,1.86,1.97,1.99,1.94,1.83,1.7,1.54,1.39,1.24,1.11,0.98,0.88,0.78,0.7]]]];
+const C=[[2.0,1.96,1.83,1.63,1.39,1.16,0.95,0.78,0.65,0.56,0.49,0.45,0.42,0.41,0.41,0.41,0.43,0.45,0.48,0.53,0.58,0.64,0.71,0.8,0.89,1.0,1.13,1.27,1.42,1.58,1.73,1.86,1.96,2.0,1.96,1.84,1.64,1.4,1.17,0.96,0.79,0.66,0.56,0.5,0.45,0.42,0.41,0.41,0.41,0.43,0.45],[1.0,1.22,1.46,1.69,1.87,1.98,2.0,1.94,1.83,1.69,1.54,1.39,1.24,1.1,0.98,0.87,0.77,0.69,0.62,0.56,0.52,0.48,0.45,0.42,0.41,0.41,0.41,0.43,0.46,0.51,0.58,0.68,0.81,0.99,1.21,1.45,1.68,1.87,1.98,2.0,1.95,1.84,1.7,1.55,1.39,1.24,1.11,0.98,0.87,0.78,0.69]];
+const cl=a=>Math.max(0,Math.min(1,a));
+function draw(s){g.clearRect(0,0,W,H);
+const u=cl((s-0.4)/9)*(S.length-1),k=Math.min(S.length-2,Math.floor(u)),f=u-k;
+const yc=S[k][1][0].map((v,i)=>v*(1-f)+S[k+1][1][0][i]*f),yr=S[k][1][1].map((v,i)=>v*(1-f)+S[k+1][1][1][i]*f);
+const it=Math.round(S[k][0]*(1-f)+S[k+1][0]*f);
+g.fillStyle='#16212E';g.font='600 28px '+F;g.textAlign='left';g.fillText('PINN · iteração '+(it>=19999?20000:it).toLocaleString('pt-BR'),20,34);
+g.fillStyle='#4A5568';g.font='24px '+F;g.fillText('fiscais ao longo do tempo: verde já acerta, vermelho ainda erra',20,74);
+const fx0=20,fx1=W-20;for(let i=0;i<51;i++){const e=Math.max(Math.abs(yc[i]-C[0][i]),Math.abs(yr[i]-C[1][i]));g.fillStyle=e<0.1?'#2E8B57':'#C8423B';g.beginPath();g.arc(fx0+(fx1-fx0)*i/50,104,8,0,7);g.fill()}
+const L=70,R=W*0.6,T=150,B=H-70;const X=t=>L+(R-L)*t/10,Y=v=>T+(B-T)*(2.15-v)/2.3;
+g.strokeStyle='#C9C2B3';g.lineWidth=2;g.beginPath();g.moveTo(L,T);g.lineTo(L,B);g.lineTo(R,B);g.stroke();
+g.fillStyle='#4A5568';g.textAlign='center';for(let t=0;t<=10;t+=5)g.fillText(t,X(t),B+32);g.fillText('anos',(L+R)/2,B+62);g.textAlign='right';g.fillText('1',L-10,Y(1)+8);g.fillText('2',L-10,Y(2)+8);
+g.setLineDash([3,7]);g.strokeStyle='#8A8F98';g.beginPath();g.moveTo(L,Y(1));g.lineTo(R,Y(1));g.stroke();
+g.setLineDash([10,8]);g.lineWidth=3;g.beginPath();C[0].forEach((v,i)=>{i?g.lineTo(X(i/5),Y(v)):g.moveTo(X(0),Y(v))});g.stroke();g.setLineDash([]);
+g.strokeStyle='#1F8A5B';g.lineWidth=6;g.lineJoin='round';g.beginPath();yc.forEach((v,i)=>{i?g.lineTo(X(i/5),Y(v)):g.moveTo(X(0),Y(v))});g.stroke();
+g.fillStyle='#1F6B47';g.textAlign='left';g.font='600 24px '+F;g.fillText('coelhos',L+10,T+4);
+const s0=W*0.66,s1=W-20,sz=s1-s0,PY=T+10;const PX=v=>s0+sz*(v-0.2)/2,PYv=v=>PY+sz*(2.2-v)/2;
+g.strokeStyle='#C9C2B3';g.lineWidth=2;g.strokeRect(s0,PY,sz,sz);
+g.setLineDash([10,8]);g.strokeStyle='#8A8F98';g.lineWidth=3;g.beginPath();C[0].forEach((v,i)=>{i?g.lineTo(PX(v),PYv(C[1][i])):g.moveTo(PX(v),PYv(C[1][i]))});g.stroke();g.setLineDash([]);
+g.strokeStyle='#E0662F';g.lineWidth=5;g.beginPath();yc.forEach((v,i)=>{i?g.lineTo(PX(v),PYv(yr[i])):g.moveTo(PX(v),PYv(yr[i]))});g.stroke();
+g.fillStyle='#8A8F98';g.beginPath();g.arc(PX(1),PYv(1),9,0,7);g.fill();
+g.font='24px '+F;g.textAlign='center';g.fillStyle='rgba(245,242,234,0.9)';g.fillRect(PX(1)-62,PYv(1)+14,124,32);
+g.fillStyle='#4A5568';g.fillText('equilíbrio',PX(1),PYv(1)+38);g.fillText('coelhos × raposas',s0+sz/2,PY+sz+34)}
+let t0=null,lt=0;function fr(ts){if(t0===null||ts-lt>1500||ts-t0>13000)t0=ts;lt=ts;draw((ts-t0)/1000);requestAnimationFrame(fr)}requestAnimationFrame(fr);
+</script></body></html></x-embed>
+<div class="cabeca">
+<p class="olho a0">Questão (iii) · Por que a PINN falhou com 5 mil iterações</p>
+<h2 class="a1">O recado do ponto de partida demora a chegar</h2>
+</div>
+<div class="corpo">
+<div class="palco"></div>
+<div class="coluna">
+<div class="cartao neutro a2"><p class="rotulo">Telefone sem fio</p><p class="leg" style="font-size:28px;color:#16212E;">Só o fiscal do início sabe a resposta; o acerto passa de fiscal em fiscal.</p></div>
+<div class="cartao neutro a3"><p class="rotulo">O esconderijo</p><p class="leg" style="font-size:28px;color:#16212E;">Onde o recado não chegou, a curva se esconde no equilíbrio.</p></div>
+<div class="placar a4">
+<div class="cartao pinn"><p class="rotulo">5 mil iterações</p><p class="num">0,96</p><p class="leg">erro, 14 s</p></div>
+<div class="cartao pinn"><p class="rotulo">20 mil</p><p class="num">0,0056</p><p class="leg">erro, 55 s</p></div>
+</div>
+<p class="pequeno a5">RK45: erro 1,8 × 10⁻⁹ em 0,04 s, com 1.256 consultas.</p>
+</div>
+</div>
+<aside>Com o mesmo treino das outras questões, 5 mil iterações, a PINN errou 0,96 nos coelhos e raposas. Por quê? Dois motivos juntos. Primeiro, o esconderijo: no equilíbrio, mil de cada, ninguém muda, então uma curva parada ali obedece à regra de graça. É o mesmo atalho da colher, só que mais disfarçado. Segundo, o telefone sem fio: só um fiscal sabe onde a história começa. Os outros só conferem a inclinação no seu ponto. Então o acerto precisa ser passado de fiscal em fiscal, da esquerda para a direita. Mostre a fileira de bolinhas: o verde avança como uma maré subindo, e onde ainda está vermelho a curva fica achatada perto de mil. No quadrado da direita, a resposta certa é um laço fechado, e a PINN faz uma espiral que cai no equilíbrio até finalmente aprender o laço. Com 20 mil iterações, 4 vezes mais treino e 55 segundos, o erro cai para 0,0056. O Runge–Kutta não tem esse problema: ele já anda da esquerda para a direita, a partir do ponto de partida. Ele é o próprio recado andando.</aside>
+</section>

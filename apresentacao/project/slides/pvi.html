@@ -1,0 +1,49 @@
+<section id="pvi" data-transition="fade">
+<x-embed style="position:absolute;left:128px;top:320px;width:1040px;height:630px;"><!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0;overflow:hidden;background:transparent"><canvas id="c"></canvas><script>
+const c=document.getElementById('c'),g=c.getContext('2d');let W,H;
+function rs(){const d=2;W=innerWidth;H=innerHeight;c.width=W*d;c.height=H*d;c.style.width=W+'px';c.style.height=H+'px';g.setTransform(d,0,0,d,0,0)}rs();addEventListener('resize',rs);
+const F='system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif';
+const L=110,R=30,T=30,B=80,t1=30,y0=12,y1=98;
+const X=t=>L+(W-L-R)*t/t1,Y=y=>T+(H-T-B)*(1-(y-y0)/(y1-y0));
+const f=(t,y)=>-0.1*(y-20),sol=t=>20+70*Math.exp(-0.1*t);
+const cl=(a)=>Math.max(0,Math.min(1,a));
+function draw(s){
+g.clearRect(0,0,W,H);
+g.strokeStyle='#C9C2B3';g.lineWidth=2;g.beginPath();g.moveTo(L,T);g.lineTo(L,H-B);g.lineTo(W-R,H-B);g.stroke();
+g.fillStyle='#4A5568';g.font='24px '+F;g.textAlign='center';
+for(let t=0;t<=30;t+=10){g.fillText(t,X(t),H-B+34)}
+g.fillText('tempo (minutos)',(L+W-R)/2,H-12);
+g.textAlign='right';for(let y=20;y<=90;y+=35){g.fillText(y+'°',L-14,Y(y)+8)}
+const a=cl(s/1.2);
+g.globalAlpha=a;g.strokeStyle='#9AA3AF';g.lineWidth=2.5;
+for(let i=0;i<=12;i++)for(let j=0;j<=8;j++){const t=i*2.5,y=16+j*10;const sx=1,sy=f(t,y);
+const px=(W-L-R)/t1*sx,py=-(H-T-B)/(y1-y0)*sy;const n=Math.hypot(px,py),l=16;const dx=px/n*l,dy=py/n*l;
+g.beginPath();g.moveTo(X(t)-dx,Y(y)-dy);g.lineTo(X(t)+dx,Y(y)+dy);g.stroke()}
+g.globalAlpha=1;
+g.setLineDash([10,8]);g.strokeStyle='#8A8F98';g.beginPath();g.moveTo(L,Y(20));g.lineTo(W-R,Y(20));g.stroke();g.setLineDash([]);
+g.fillStyle='#4A5568';g.textAlign='right';g.fillText('temperatura da sala',W-R-6,Y(20)-14);
+const p=cl((s-1.4)/4.2),te=p*t1;
+if(s>1.2){g.strokeStyle='#E0662F';g.lineWidth=6;g.lineCap='round';g.beginPath();
+for(let k=0;k<=120;k++){const t=te*k/120;k?g.lineTo(X(t),Y(sol(t))):g.moveTo(X(t),Y(sol(t)))}g.stroke();
+g.fillStyle='#E0662F';g.beginPath();g.arc(X(te),Y(sol(te)),11,0,7);g.fill()}
+g.fillStyle='#16212E';g.beginPath();g.arc(X(0),Y(90),12,0,7);g.fill();
+g.textAlign='left';g.font='600 26px '+F;g.fillText('ponto de partida: 90°',X(0)+24,Y(90)+9);
+if(s>6){g.globalAlpha=cl((s-6)/0.6);g.fillStyle='#A8441A';g.font='600 26px '+F;g.fillText('a curva segue as setas',X(13),Y(sol(13))-30);g.globalAlpha=1}
+}
+let t0=null,lt=0;function fr(ts){if(t0===null||ts-lt>1500||ts-t0>11000)t0=ts;lt=ts;draw((ts-t0)/1000);requestAnimationFrame(fr)}requestAnimationFrame(fr);
+</script></body></html></x-embed>
+<div class="cabeca">
+<p class="olho a0">O que é resolver uma equação diferencial</p>
+<h2 class="a1">Uma regra de mudança e um ponto de partida</h2>
+</div>
+<div class="corpo">
+<div class="palco"></div>
+<div class="coluna">
+<div class="cartao neutro a2"><p class="rotulo">A regra</p><p class="leg" style="font-size:28px;color:#16212E;">A cada minuto, o café perde 10% da diferença para a sala. Cada seta mostra para onde a temperatura vai.</p></div>
+<div class="cartao neutro a3"><p class="rotulo">O ponto de partida</p><p class="leg" style="font-size:28px;color:#16212E;">O café começa a 90 graus.</p></div>
+<p class="formula a4">y′ = f(t, y),&nbsp;&nbsp; y(0) = y₀</p>
+<p class="pequeno a5">Resolver é desenhar a curva que obedece às setas e começa no ponto certo. Os dois métodos fazem isso de jeitos opostos.</p>
+</div>
+</div>
+<aside>Antes de comparar os métodos, uma lembrança do que é resolver uma equação diferencial. Ela tem duas partes: uma regra que diz como a coisa muda e um ponto de partida. No exemplo do café, a regra é: a cada minuto ele perde 10% da diferença para a temperatura da sala. As setinhas cinzas mostram essa regra em cada ponto: para onde a temperatura vai a partir dali. O ponto de partida é 90 graus. Resolver é desenhar a curva laranja: ela começa no ponto certo e segue as setas. Em fórmula, y linha igual a f de t e y, com y de zero igual a y zero. Os dois competidores, Runge–Kutta e PINN, desenham essa curva de jeitos opostos, e é isso que os próximos slides mostram.</aside>
+</section>

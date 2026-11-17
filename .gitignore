@@ -1,0 +1,21 @@
+# Anotações pessoais do assistente (não fazem parte da entrega)
+CLAUDE.md
+
+# Arquivos gerados pelo Python
+__pycache__/
+*.pyc
+
+# Arquivos auxiliares do LaTeX (o PDF final fica no repositório)
+relatorio/*.aux
+relatorio/*.log
+relatorio/*.out
+relatorio/*.toc
+relatorio/*.synctex.gz
+relatorio/*.fdb_latexmk
+relatorio/*.fls
+
+# Áudio de estudo (19 MB): fica só na pasta local
+estudo/*.wav
+
+# Dados intermediários das animações (refeitos por apresentacao/dados_animacoes.py)
+apresentacao/dados_animacoes.json

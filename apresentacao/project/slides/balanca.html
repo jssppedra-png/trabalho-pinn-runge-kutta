@@ -1,0 +1,47 @@
+<section id="balanca" data-transition="fade">
+<x-embed style="position:absolute;left:128px;top:320px;width:1040px;height:630px;"><!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0;overflow:hidden;background:transparent"><canvas id="c"></canvas><script>
+const c=document.getElementById('c'),g=c.getContext('2d');let W,H;
+function rs(){const d=2;W=innerWidth;H=innerHeight;c.width=W*d;c.height=H*d;c.style.width=W+'px';c.style.height=H+'px';g.setTransform(d,0,0,d,0,0)}rs();addEventListener('resize',rs);
+const F='system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif';
+const cl=a=>Math.max(0,Math.min(1,a)),M=k=>(50-k)*(50-k)*(1-Math.exp(-2*k))/(2*k);
+function draw(s){g.clearRect(0,0,W,H);
+const q=(s%12)/12,e=0.5-0.5*Math.cos(2*Math.PI*q),k=Math.max(3,Math.round(3+97*e));
+const a0=24,a1=W*0.42,T=70,B=H-90;const X1=t=>a0+(a1-a0)*t/0.2,Y1=y=>T+(B-T)*(1.05-y)/1.15;
+g.strokeStyle='#C9C2B3';g.lineWidth=2;g.beginPath();g.moveTo(a0,T-20);g.lineTo(a0,B);g.lineTo(a1,B);g.stroke();
+g.fillStyle='#16212E';g.font='600 26px '+F;g.textAlign='left';g.fillText('curvas candidatas',a0,40);
+g.setLineDash([10,8]);g.strokeStyle='#8A8F98';g.lineWidth=3;g.beginPath();for(let i=0;i<=200;i++){const t=0.2*i/200;i?g.lineTo(X1(t),Y1(Math.exp(-50*t))):g.moveTo(X1(t),Y1(1))}g.stroke();g.setLineDash([]);
+g.strokeStyle='#2563C9';g.lineWidth=5;g.beginPath();g.moveTo(X1(0),Y1(0));g.lineTo(X1(0.2),Y1(0));g.stroke();
+g.strokeStyle='#E0662F';g.lineWidth=6;g.beginPath();for(let i=0;i<=200;i++){const t=0.2*i/200;i?g.lineTo(X1(t),Y1(Math.exp(-k*t))):g.moveTo(X1(t),Y1(1))}g.stroke();
+g.fillStyle='#4A5568';g.font='24px '+F;g.fillText('sai do 1 com velocidade k',X1(0.03),Y1(0.93));g.fillStyle='#1D4FA3';g.fillText('atalho: fica no zero',X1(0.07),Y1(0)-16);
+const b0=W*0.52,b1=W-24;const X2=v=>b0+(b1-b0)*(v-1)/99,Y2=v=>T+(B-T)*(3.2-Math.log10(Math.max(v,1e-2)))/5.2;
+g.strokeStyle='#C9C2B3';g.lineWidth=2;g.beginPath();g.moveTo(b0,T-20);g.lineTo(b0,B);g.lineTo(b1,B);g.stroke();
+g.fillStyle='#16212E';g.font='600 26px '+F;g.fillText('multa para cada velocidade k',b0,40);
+g.fillStyle='rgba(46,139,87,0.16)';g.fillRect(X2(41),T,X2(61)-X2(41),B-T);
+g.fillStyle='#2E6B47';g.font='600 24px '+F;g.textAlign='center';g.fillText('41 a 61',(X2(41)+X2(61))/2,T+28);
+g.strokeStyle='#2563C9';g.lineWidth=4;g.beginPath();g.moveTo(b0,Y2(1));g.lineTo(b1,Y2(1));g.stroke();
+g.textAlign='right';g.fillStyle='#1D4FA3';g.font='24px '+F;g.fillText('atalho: multa 1',b1,Y2(1)-12);
+g.strokeStyle='#E0662F';g.lineWidth=4;g.beginPath();for(let v=1;v<=100;v+=0.5){const p=[X2(v),Y2(M(v))];v>1?g.lineTo(p[0],p[1]):g.moveTo(p[0],p[1])}g.stroke();
+g.textAlign='center';g.fillStyle='#4A5568';g.font='24px '+F;for(const v of [1,25,50,75,100])g.fillText(v,X2(v),B+32);
+g.textAlign='right';for(const [v,l] of [[1000,'1000'],[10,'10'],[0.1,'0,1']])g.fillText(l,b0-8,Y2(v)+8);
+const m=M(k);g.fillStyle='#E0662F';g.beginPath();g.arc(X2(k),Y2(m),11,0,7);g.fill();
+g.fillStyle='#16212E';g.font='600 28px '+F;g.textAlign='left';g.fillText('k = '+k,a0,H-30);
+const ms=m>=10?Math.round(m).toLocaleString('pt-BR'):m.toFixed(2).replace('.',',');
+g.fillText('multa ≈ '+ms,a0+150,H-30);g.fillStyle=m<1?'#2E6B47':'#B4481A';g.textAlign='right';
+g.fillText(m<1?'mais barata que o atalho':'mais cara que o atalho',W-24,H-30)}
+let t0=null,lt=0;function fr(ts){if(t0===null||ts-lt>1500)t0=ts;lt=ts;draw((ts-t0)/1000);requestAnimationFrame(fr)}requestAnimationFrame(fr);
+</script></body></html></x-embed>
+<div class="cabeca">
+<p class="olho a0">Por que a PINN falhou na questão (i)</p>
+<h2 class="a1">O ponto de partida é só mais uma multa</h2>
+</div>
+<div class="corpo">
+<div class="palco"></div>
+<div class="coluna">
+<div class="cartao neutro a2"><p class="rotulo">O atalho</p><p class="leg" style="font-size:28px;color:#16212E;">A linha no zero obedece à regra em todo lugar. Só erra o início: multa 1.</p></div>
+<div class="cartao neutro a3"><p class="rotulo">Obedecer custa caro</p><p class="leg" style="font-size:28px;color:#16212E;">Uma curva que sai do 1 com a velocidade errada paga multa em todos os fiscais.</p></div>
+<p class="formula a4">multa(k) ≈ (50 − k)² / 2k</p>
+<p class="pequeno a5">Só velocidades entre 41 e 61 batem o atalho. O treino desce a ladeira mais próxima.</p>
+</div>
+</div>
+<aside>Por que a PINN prefere a linha no zero? Porque, na PINN, o ponto de partida não é uma obrigação: é só mais uma multa. A linha no zero obedece à regra em todos os pontos e só erra o começo, então paga multa 1. Agora olhe a animação: a curva laranja sai do 1 com uma velocidade de queda k que vai variando sozinha. À direita está a multa de cada velocidade. Ela só fica abaixo da linha azul, que é a multa do atalho, numa faixa estreita, entre 41 e 61. Com velocidade 10, por exemplo, a multa passa de 80. A conta de papel é a fórmula do cartão: multa aproximadamente (50 menos k) ao quadrado sobre 2k. Como o treino só desce a ladeira mais próxima, como uma bolinha no escuro, ele cai no buraquinho do zero e nunca encontra o vale certo, que fica atrás de um morro. Frase para lembrar: quando obedecer custa mais caro do que pagar a multa, a otimização escolhe pagar.</aside>
+</section>

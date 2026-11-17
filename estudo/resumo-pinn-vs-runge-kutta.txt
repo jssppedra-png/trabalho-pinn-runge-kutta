@@ -1,0 +1,27 @@
+Resumo do trabalho: redes neurais informadas pela física contra Runge-Kutta.
+
+Primeiro, o que é o problema. Uma equação diferencial é uma regra que diz como uma coisa muda a cada instante. Por exemplo: a temperatura de um café cai mais rápido quando ele está mais quente. Se você sabe onde começa e conhece a regra de mudança, quer descobrir a trajetória inteira. Isso é um problema de valor inicial.
+
+Existem dois jeitos de resolver isso no computador.
+
+O primeiro jeito é o Runge-Kutta. Ele anda passo a passo, como quem atravessa um rio pisando em pedras. Em cada passo, ele olha a inclinação, ou seja, para onde a solução está indo, em alguns pontos dentro do passo, faz uma média esperta e dá o passo. A versão adaptativa, chamada RK quarenta e cinco, faz duas contas em cada passo, uma mais precisa que a outra. A diferença entre as duas diz quanto ele está errando. Se o erro está grande, ele diminui o passo. Se está pequeno, aumenta. Por isso ele tem garantias: ele tem uma ordem de convergência, que quer dizer que, se eu diminuo o passo, o erro cai de um jeito previsível. E ele tem controle de passo.
+
+O segundo jeito é a PINN, a rede neural informada pela física. Em vez de andar passo a passo, ela chuta a curva inteira de uma vez. A rede neural é só uma função muito flexível, cheia de botões ajustáveis. Você escolhe vários pontos de teste no tempo, chamados pontos de colocação, e em cada um mede o quanto a curva desobedece a regra da equação. Esse quanto desobedece é o resíduo. Depois, você vai girando os botões da rede para diminuir o resíduo, e também para acertar o ponto de partida. Isso é o treinamento. É como um alfaiate ajustando um terno inteiro até ele servir, em vez de construir um muro tijolo por tijolo.
+
+O problema da PINN é que não existe garantia de que o treinamento chega lá. O erro dela não depende do tamanho de um passo. Depende de o otimizador conseguir ou não achar bons valores para os botões. E às vezes ele fica preso. Por isso o enunciado diz que o erro da PINN é limitado pela otimização, e não pelo truncamento.
+
+A pergunta central do trabalho é: num problema simples e bem comportado, a PINN consegue ser tão boa quanto o Runge-Kutta, considerando ao mesmo tempo o custo e a precisão? E se não consegue, em que tipo de problema ela vale a pena?
+
+O trabalho tem três partes.
+
+Parte um. Você programa uma PINN pequena e resolve três equações. A primeira é y linha igual a menos cinquenta y. A solução é uma exponencial que despenca muito rápido, quase como um degrau. Redes neurais têm dificuldade com mudanças bruscas. A segunda é y linha igual a cosseno de vinte t. A solução oscila rápido, como uma mola vibrando. Redes neurais tendem a aprender primeiro as coisas suaves e lentas, e sofrem com oscilação rápida. A terceira é um sistema que você escolhe, por exemplo predador e presa, ou um oscilador. Depois você compara com o solve i v p do scipy, usando RK quarenta e cinco com tolerância de dez elevado a menos dez. Você mede três coisas: o erro, o tempo, e quantas vezes cada método precisou calcular a função f, que é a regra da equação. Essa contagem é uma medida de custo justa.
+
+Parte dois. Você reproduz uma falha famosa, descrita por Krishnapriyan e colegas em dois mil e vinte e um. Em equações de transporte com velocidade alta, ou de reação muito rápida, a PINN simplesmente não aprende. O remédio proposto é o treinamento por currículo: começar com o problema fácil, com velocidade baixa, treinar, e ir aumentando a dificuldade aos poucos, usando a rede já treinada como ponto de partida. É como aprender a andar de bicicleta com rodinhas antes de tirá-las.
+
+Parte três. Você escreve a comparação de forma honesta, seguindo McGreivy e Hakim, de dois mil e vinte e quatro. Eles mostraram que muitos artigos dizem que a rede neural ganhou, mas comparam com um método tradicional mal configurado. É como apostar corrida contra uma bicicleta de pneu furado. Então a regra é: mesma precisão exigida, mesmo computador, mesma forma de medir o erro.
+
+O resultado esperado é que, nesses problemas simples, o Runge-Kutta ganha com folga. Ele chega a erros minúsculos em milissegundos, enquanto a PINN leva minutos de treinamento para um erro bem maior.
+
+Mas a conclusão não é que PINN não serve. Ela faz sentido em três situações. Primeiro, problemas inversos: quando você não conhece um parâmetro da equação e quer descobri-lo a partir de medições. Segundo, quando você tem poucos dados, e com ruído: a física ajuda a preencher as lacunas. Terceiro, geometrias complicadas ou muitas dimensões, onde montar uma malha para os métodos tradicionais é caro.
+
+Resumindo em uma frase: para resolver uma equação conhecida a partir de um ponto de partida, use Runge-Kutta. Para misturar física com dados incompletos, ou descobrir o que você não sabe, a PINN pode valer a pena.

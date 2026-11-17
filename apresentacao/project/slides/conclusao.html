@@ -1,0 +1,16 @@
+<section id="conclusao" class="escuro">
+<div class="cabeca">
+<p class="olho a0">Conclusão do exercício 1</p>
+<h2 class="a1" style="font-size:72px;width:1600px;">Com regra e ponto de partida conhecidos, o Runge–Kutta vence em custo e em precisão</h2>
+</div>
+<div style="display:flex;flex-direction:row;gap:28px;margin-top:56px;">
+<div class="a2" style="flex:1;display:flex;flex-direction:column;gap:10px;border-top:4px solid #F0A27A;padding-top:20px;"><h3 style="font-size:36px;">Sem controle de passo</h3><p class="texto" style="font-size:28px;">O erro da PINN depende da otimização, não de uma tolerância.</p></div>
+<div class="a3" style="flex:1;display:flex;flex-direction:column;gap:10px;border-top:4px solid #F0A27A;padding-top:20px;"><h3 style="font-size:36px;">Multa não é obrigação</h3><p class="texto" style="font-size:28px;">O ponto de partida pode ser ignorado quando o atalho sai barato.</p></div>
+<div class="a4" style="flex:1;display:flex;flex-direction:column;gap:10px;border-top:4px solid #F0A27A;padding-top:20px;"><h3 style="font-size:36px;">Sem ordem do tempo</h3><p class="texto" style="font-size:28px;">O recado do início demora a chegar; ondas rápidas vêm por último.</p></div>
+</div>
+<div class="a5" style="margin-top:56px;display:flex;flex-direction:column;gap:12px;">
+<p class="texto" style="font-size:32px;color:#E8EDF2;">Onde a PINN pode valer a pena: problemas inversos, dados esparsos e ruidosos, geometrias em que a malha é cara. <span style="color:#F0A27A;">É o tema do exercício 3.</span></p>
+<p class="pequeno">Limites: uma semente, sem ajuste fino da rede, precisão simples (cerca de 7 dígitos).</p>
+</div>
+<aside>Para fechar. A resposta à pergunta central, para problemas de valor inicial bem postos, é não: a PINN não iguala o Runge–Kutta, e perde em custo e em precisão ao mesmo tempo. Três razões, uma para cada falha que vimos. Primeiro, não há controle de passo: o erro da PINN depende de quão bem o treino desce a multa, não de uma tolerância que você pede. Segundo, multa não é obrigação: o ponto de partida pode ser ignorado quando o atalho sai mais barato, como na colher. Terceiro, não há ordem do tempo: o recado do início demora a chegar ao fim, como nos coelhos, e as ondas rápidas são aprendidas por último. Seja honesto sobre os limites: usamos uma semente só, não ajustamos a rede e o PyTorch calcula com cerca de 7 dígitos. E isso não quer dizer que a PINN é inútil: ela pode valer a pena em problemas inversos, com dados esparsos ou ruidosos, ou em geometrias complicadas. Esse é o tema do exercício 3, e aqui você passa a palavra para quem apresenta ele.</aside>
+</section>

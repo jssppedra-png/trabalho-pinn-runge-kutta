@@ -1,0 +1,43 @@
+<section id="coelhos" data-transition="fade">
+<x-embed style="position:absolute;left:128px;top:320px;width:1040px;height:630px;"><!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0;overflow:hidden;background:transparent"><canvas id="c"></canvas><script>
+const c=document.getElementById('c'),g=c.getContext('2d');let W,H;
+function rs(){const d=2;W=innerWidth;H=innerHeight;c.width=W*d;c.height=H*d;c.style.width=W+'px';c.style.height=H+'px';g.setTransform(d,0,0,d,0,0)}rs();addEventListener('resize',rs);
+const F='system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif';
+const fn=(c,r)=>[c-c*r,-r+c*r];const S=[];let y=[2,1];const h=0.01;S.push(y);
+for(let i=0;i<1000;i++){const k1=fn(...y),k2=fn(y[0]+h/2*k1[0],y[1]+h/2*k1[1]),k3=fn(y[0]+h/2*k2[0],y[1]+h/2*k2[1]),k4=fn(y[0]+h*k3[0],y[1]+h*k3[1]);
+y=[y[0]+h/6*(k1[0]+2*k2[0]+2*k3[0]+k4[0]),y[1]+h/6*(k1[1]+2*k2[1]+2*k3[1]+k4[1])];S.push(y)}
+const cl=a=>Math.max(0,Math.min(1,a));
+const L=80,R=24,T=120,B=80;const X=t=>L+(W-L-R)*t/10,Y=v=>T+(H-T-B)*(2.25-v)/2.1;
+function draw(s){g.clearRect(0,0,W,H);
+g.strokeStyle='#C9C2B3';g.lineWidth=2;g.beginPath();g.moveTo(L,T-10);g.lineTo(L,H-B);g.lineTo(W-R,H-B);g.stroke();
+g.fillStyle='#4A5568';g.font='24px '+F;g.textAlign='right';for(const v of [0.5,1,1.5,2])g.fillText(String(v).replace('.',','),L-12,Y(v)+8);
+g.textAlign='center';for(let t=0;t<=10;t+=2)g.fillText(t,X(t),H-B+34);g.fillText('tempo (anos)',(L+W-R)/2,H-12);
+g.setLineDash([3,7]);g.strokeStyle='#8A8F98';g.lineWidth=2;g.beginPath();g.moveTo(L,Y(1));g.lineTo(W-R,Y(1));g.stroke();g.setLineDash([]);
+g.textAlign='left';g.fillText('ponto de virada: mil',W-R-230,Y(1)+30);
+const p=cl((s-0.3)/9),n=Math.max(1,Math.floor(p*1000));
+for(const [j,cor,dash] of [[0,'#1F8A5B',[]],[1,'#E0662F',[14,8]]]){g.setLineDash(dash);g.strokeStyle=cor;g.lineWidth=6;g.lineCap='round';g.beginPath();
+for(let i=0;i<=n;i+=2){i?g.lineTo(X(i*h),Y(S[i][j])):g.moveTo(X(0),Y(S[0][j]))}g.stroke();g.setLineDash([])}
+const [cc,rr]=S[n];g.fillStyle='#1F8A5B';g.beginPath();g.arc(X(n*h),Y(cc),11,0,7);g.fill();g.fillStyle='#E0662F';g.beginPath();g.arc(X(n*h),Y(rr),11,0,7);g.fill();
+const dc=cc*(1-rr),dr=rr*(cc-1);let ato;
+if(dc>=0&&dr>=0)ato='Fartura: muitos coelhos, as raposas crescem';else if(dc<0&&dr>=0)ato='Caçada: raposas demais, os coelhos despencam';
+else if(dc<0&&dr<0)ato='Fome: poucos coelhos, as raposas despencam';else ato='Recuperação: poucas raposas, os coelhos voltam';
+g.fillStyle='#16212E';g.font='600 30px '+F;g.textAlign='left';g.fillText(ato,L,44);
+g.font='26px '+F;g.fillStyle='#1F8A5B';g.fillText('coelhos: '+Math.round(cc*1000).toLocaleString('pt-BR'),L,86);
+g.fillStyle='#B4481A';g.fillText('raposas: '+Math.round(rr*1000).toLocaleString('pt-BR'),L+260,86)}
+let t0=null,lt=0;function fr(ts){if(t0===null||ts-lt>1500||ts-t0>12500)t0=ts;lt=ts;draw((ts-t0)/1000);requestAnimationFrame(fr)}requestAnimationFrame(fr);
+</script></body></html></x-embed>
+<div class="cabeca">
+<p class="olho a0">Questão (iii) · O sistema não rígido que escolhemos</p>
+<h2 class="a1">Coelhos e raposas: duas populações que se puxam</h2>
+</div>
+<div class="corpo">
+<div class="palco"></div>
+<div class="coluna">
+<div class="cartao a2" style="border-top:8px solid #1F8A5B;"><p class="rotulo" style="color:#1F6B47;">Coelhos</p><p class="leg" style="font-size:28px;color:#16212E;">Nascem sozinhos e são comidos quando encontram raposas.</p></div>
+<div class="cartao pinn a3"><p class="rotulo">Raposas</p><p class="leg" style="font-size:28px;color:#16212E;">Morrem de fome sozinhas e crescem quando comem coelhos.</p></div>
+<p class="formula a4" style="font-size:30px;">c′ = c − c·r&nbsp;&nbsp;&nbsp; r′ = −r + c·r</p>
+<div class="cartao neutro a5"><p class="rotulo">Equilíbrio</p><p class="leg" style="font-size:28px;color:#16212E;">Com mil de cada, ninguém muda. Guarde este ponto.</p></div>
+</div>
+</div>
+<aside>Para a terceira questão, escolhemos um sistema famoso: coelhos e raposas, o modelo de Lotka–Volterra. São duas populações que dependem uma da outra. Os coelhos nascem sozinhos, mas são comidos quando encontram raposas. As raposas morrem de fome sozinhas, mas crescem quando comem coelhos. O resultado é um ciclo eterno, que a animação mostra em quatro atos: fartura, quando há muitos coelhos e as raposas crescem; caçada, quando há raposas demais e os coelhos despencam; fome, quando faltam coelhos e as raposas despencam; e recuperação, quando os coelhos voltam. Repare que a curva laranja das raposas vem sempre um pouco atrás da verde. Os números da regra foram escolhidos para o ponto de virada ser mil. E existe um ponto especial: com exatamente mil coelhos e mil raposas, nascimentos e mortes se cancelam e ninguém muda. Esse é o equilíbrio, e ele vai ser importante no próximo slide. Esse sistema não tem fórmula exata, então a resposta certa veio de um Runge–Kutta muito mais exigente, conferido de dois jeitos.</aside>
+</section>
