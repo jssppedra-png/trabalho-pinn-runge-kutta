@@ -1,10 +1,10 @@
 Problema,Método,Erro máximo,Tempo (s),Avaliações de f
-(i) y' = -50y,"RK45, tolerância 1e-10",9.386e-11,0.0218,884
-(i) y' = -50y,"PINN, 5 mil iterações",9.946e-01,19.1204,1000000
-(i) y' = -50y,"PINN, fiscal do início x 100",6.220e-03,19.3608,1000000
-(i) y' = -50y,"PINN, curva amarrada no início",1.890e-01,20.3655,1000000
-(ii) y' = cos(20t),"RK45, tolerância 1e-10",6.459e-10,0.0218,740
-(ii) y' = cos(20t),"PINN, 5 mil iterações",3.910e-04,19.0866,1000000
-(iii) coelhos e raposas,"RK45, tolerância 1e-10",1.837e-09,0.0545,1256
-(iii) coelhos e raposas,"PINN, 5 mil iterações",9.631e-01,25.6919,1000000
-(iii) coelhos e raposas,"PINN, 20 mil iterações",5.587e-03,103.5093,4000000
+(i) y' = -50y,"RK45, tolerância 1e-10",9.386e-11,0.0109,884
+(i) y' = -50y,"PINN, 5 mil iterações",9.946e-01,17.9855,1000000
+(i) y' = -50y,"PINN, fiscal do início x 100",6.220e-03,16.0265,1000000
+(i) y' = -50y,"PINN, curva amarrada no início",1.890e-01,16.9478,1000000
+(ii) y' = cos(20t),"RK45, tolerância 1e-10",6.459e-10,0.0083,740
+(ii) y' = cos(20t),"PINN, 5 mil iterações",3.910e-04,17.3189,1000000
+(iii) coelhos e raposas,"RK45, tolerância 1e-10",1.837e-09,0.0275,1256
+(iii) coelhos e raposas,"PINN, 5 mil iterações",9.631e-01,23.4519,1000000
+(iii) coelhos e raposas,"PINN, 20 mil iterações",5.587e-03,90.2575,4000000
