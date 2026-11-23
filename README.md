@@ -18,8 +18,8 @@ consegue igualar um Runge–Kutta adaptativo em custo × precisão?
 
 Abra o notebook [`exercicio1_colab.ipynb`](https://colab.research.google.com/github/jssppedra-png/trabalho-pinn-runge-kutta/blob/main/exercicio1_colab.ipynb)
 no Colab e use *Ambiente de execução → Executar tudo*. Ele baixa o repositório, roda `exercicio1.py` e mostra a tabela
-e as figuras. Enquanto o repositório for privado, o Colab pede autorização para acessar o GitHub, e o notebook precisa de
-um token de leitura guardado nos *Secrets* do Colab com o nome `GITHUB_TOKEN`.
+e as figuras (o Colab pede login com uma conta Google). Testado no Colab: todas as células rodam sem erro. Os erros da
+PINN podem diferir dos de `resultados/` com outras versões do PyTorch, mas a conclusão é a mesma.
 
 ## Como rodar no próprio computador (um comando, sem intervenção)
 
