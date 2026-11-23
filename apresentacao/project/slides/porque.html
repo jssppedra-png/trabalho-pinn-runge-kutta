@@ -1,0 +1,40 @@
+<section id="porque" data-transition="fade">
+<x-embed style="position:absolute;left:128px;top:320px;width:1040px;height:630px;"><!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0;overflow:hidden;background:transparent"><canvas id="c"></canvas><script>
+const c=document.getElementById('c'),g=c.getContext('2d');let W,H;
+function rs(){const d=2;W=innerWidth;H=innerHeight;c.width=W*d;c.height=H*d;c.style.width=W+'px';c.style.height=H+'px';g.setTransform(d,0,0,d,0,0)}rs();addEventListener('resize',rs);
+const F='system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif';
+const P=[[0,253,[0.236,0.237,0.238,0.239,0.24,0.241,0.242,0.244,0.245,0.246,0.247,0.248,0.249,0.25,0.251,0.252,0.253,0.254,0.255,0.256,0.257,0.258,0.259,0.26,0.261,0.262,0.263,0.264,0.265,0.266,0.267]],[50,85.46,[0.161,0.159,0.156,0.154,0.152,0.149,0.147,0.145,0.143,0.14,0.138,0.136,0.134,0.131,0.129,0.127,0.125,0.122,0.12,0.118,0.116,0.113,0.111,0.109,0.107,0.104,0.102,0.1,0.098,0.095,0.093]],[200,82.84,[0.162,0.159,0.156,0.153,0.15,0.147,0.144,0.141,0.138,0.135,0.132,0.129,0.126,0.123,0.12,0.117,0.115,0.112,0.109,0.106,0.103,0.101,0.098,0.095,0.092,0.09,0.087,0.084,0.082,0.079,0.077]],[500,62.8,[0.32,0.305,0.289,0.274,0.259,0.245,0.231,0.217,0.203,0.19,0.177,0.165,0.153,0.142,0.131,0.12,0.11,0.1,0.091,0.082,0.074,0.066,0.059,0.051,0.045,0.038,0.032,0.027,0.021,0.016,0.012]],[1000,9.91,[0.832,0.646,0.477,0.338,0.232,0.155,0.1,0.062,0.036,0.017,0.004,-0.006,-0.013,-0.018,-0.021,-0.024,-0.025,-0.026,-0.027,-0.027,-0.027,-0.026,-0.025,-0.024,-0.023,-0.022,-0.02,-0.019,-0.017,-0.016,-0.014]],[2000,0.22,[0.99,0.607,0.356,0.213,0.133,0.087,0.057,0.038,0.025,0.016,0.009,0.005,0.002,-0.001,-0.002,-0.003,-0.003,-0.004,-0.004,-0.004,-0.003,-0.003,-0.003,-0.003,-0.002,-0.002,-0.001,-0.001,-0.001,0,0]],[3000,0.08,[0.997,0.599,0.357,0.22,0.14,0.091,0.058,0.036,0.021,0.011,0.005,0.001,-0.002,-0.003,-0.004,-0.004,-0.004,-0.004,-0.004,-0.003,-0.002,-0.002,-0.001,-0.001,0,0,0.001,0.001,0.001,0.001,0.002]],[4999,0.02,[0.999,0.601,0.363,0.224,0.139,0.086,0.052,0.031,0.017,0.009,0.005,0.002,0,-0.001,-0.001,-0.001,-0.001,-0.001,0,0,0,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001]]];
+const A=[[0,2932,[0.3,0.2,0.3,0.3,0.3,0.2,0.3,0.3,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2]],[50,649,[-1.3,-1.3,-1.3,-1.3,-1.3,-1.3,-1.3,-1.3,-1.3,-1.3,-1.3,-1.3,-1.3,-1.3,-1.4,-1.4,-1.4,-1.4,-1.4,-1.4,-1.4,-1.4,-1.4,-1.4,-1.4,-1.4,-1.4,-1.4,-1.4,-1.4]],[200,279,[-3,-3,-3,-2.9,-2.9,-2.9,-2.9,-2.9,-2.9,-2.9,-2.9,-2.8,-2.8,-2.8,-2.8,-2.8,-2.8,-2.7,-2.7,-2.7,-2.7,-2.7,-2.7,-2.6,-2.6,-2.6,-2.6,-2.6,-2.6,-2.5]],[500,227,[-3.8,-3.8,-3.8,-3.7,-3.7,-3.7,-3.7,-3.6,-3.6,-3.6,-3.5,-3.5,-3.5,-3.5,-3.4,-3.4,-3.4,-3.3,-3.3,-3.3,-3.3,-3.2,-3.2,-3.2,-3.1,-3.1,-3.1,-3,-3,-3]],[1000,96.6,[-6.8,-6.7,-6.6,-6.6,-6.5,-6.4,-6.4,-6.3,-6.2,-6.1,-6,-5.9,-5.8,-5.7,-5.6,-5.4,-5.3,-5.2,-5.1,-4.9,-4.8,-4.6,-4.5,-4.4,-4.2,-4.1,-4,-3.8,-3.7,-3.6]],[2000,41.1,[-11.6,-11.5,-11.3,-11.1,-10.9,-10.6,-10.3,-10,-9.6,-9.2,-8.8,-8.4,-8,-7.5,-7.1,-6.7,-6.3,-5.9,-5.6,-5.2,-4.9,-4.7,-4.4,-4.2,-4,-3.8,-3.7,-3.5,-3.4,-3.3]],[3000,23.1,[-15.6,-15.3,-14.9,-14.5,-14,-13.4,-12.7,-11.9,-11.1,-10.3,-9.5,-8.7,-8,-7.4,-6.8,-6.3,-5.9,-5.5,-5.2,-4.9,-4.7,-4.5,-4.3,-4.1,-4,-3.8,-3.7,-3.5,-3.4,-3.3]],[4999,8.1,[-23.1,-22.3,-21.2,-19.7,-17.9,-15.9,-14,-12.4,-11,-9.9,-9,-8.3,-7.7,-7.1,-6.7,-6.3,-5.9,-5.6,-5.3,-5,-4.8,-4.6,-4.4,-4.2,-4,-3.8,-3.7,-3.6,-3.4,-3.3]]];
+const cl=a=>Math.max(0,Math.min(1,a)),fmt=v=>v>=100?Math.round(v).toLocaleString('pt-BR'):v.toLocaleString('pt-BR',{maximumFractionDigits:2});
+function painel(x0,x1,ymin,ymax,ticks,titulo,cor,alvo,rede,rs0){const T=150,B=H-110;
+const X=s=>x0+(x1-x0)*s/0.3,Y=v=>T+(B-T)*(ymax-v)/(ymax-ymin);
+g.strokeStyle='#C9C2B3';g.lineWidth=2;g.beginPath();g.moveTo(x0,T-10);g.lineTo(x0,B);g.lineTo(x1,B);g.stroke();
+g.fillStyle='#4A5568';g.font='24px '+F;g.textAlign='right';ticks.forEach(v=>g.fillText(String(v).replace('.',','),x0-10,Y(v)+8));
+g.textAlign='center';[0,0.1,0.2,0.3].forEach(s=>g.fillText(String(s).replace('.',','),X(s),B+32));
+g.fillStyle=cor;g.font='600 26px '+F;g.textAlign='left';g.fillText(titulo,x0-50,T-74);
+g.setLineDash([10,8]);g.strokeStyle='#8A8F98';g.lineWidth=3;g.beginPath();for(let i=0;i<=150;i++){const s=0.3*i/150;const v=alvo(s);i?g.lineTo(X(s),Y(v)):g.moveTo(X(s),Y(v))}g.stroke();g.setLineDash([]);
+g.strokeStyle=cor;g.lineWidth=6;g.lineJoin='round';g.lineCap='round';g.beginPath();rede.forEach((v,i)=>{const s=rs0+i*0.01;i?g.lineTo(X(s),Y(v)):g.moveTo(X(s),Y(v))});g.stroke();return Y}
+function interp(D,u){const k=Math.min(D.length-2,Math.floor(u)),f=u-k;return [D[k][0]*(1-f)+D[k+1][0]*f,Math.exp(Math.log(D[k][1])*(1-f)+Math.log(D[k+1][1])*f),D[k][2].map((v,i)=>v*(1-f)+D[k+1][2][i]*f)]}
+function draw(s){g.clearRect(0,0,W,H);const u=cl((s-0.5)/9)*(P.length-1);const [it,mp,yp]=interp(P,u),[,ma,ya]=interp(A,u);
+g.fillStyle='#16212E';g.font='600 30px '+F;g.textAlign='left';g.fillText('o que cada rede precisa desenhar · iteração '+(Math.round(it)>=4999?5000:Math.round(it)).toLocaleString('pt-BR'),0,34);
+painel(70,470,-0.1,1.1,[0,0.5,1],'Fiscal × 100: a curva y','#2E8B57',s=>Math.exp(-50*s),yp,0);
+const Y2=painel(620,1020,-52,4,[0,-25,-50],'Amarrada: a curva N(s)','#7A5BC2',s=>s<1e-4?-50:(Math.exp(-50*s)-1)/s,ya,0.01);
+g.fillStyle='#5B3FA0';g.font='600 24px '+F;g.textAlign='left';g.fillText('precisa chegar a −50',640,Y2(-50)-12);
+g.fillStyle='#4A5568';g.font='24px '+F;g.textAlign='center';g.fillText('tempo s',270,H-30);g.fillText('tempo s',820,H-30);
+g.textAlign='left';g.font='600 26px '+F;g.fillStyle='#2E6B47';g.fillText('multa: '+fmt(mp),20,118);g.fillStyle='#5B3FA0';g.fillText('multa: '+fmt(ma),570,118)}
+let t0=null,lt=0;function fr(ts){if(t0===null||ts-lt>1500||ts-t0>13500)t0=ts;lt=ts;draw((ts-t0)/1000);requestAnimationFrame(fr)}requestAnimationFrame(fr);
+</script></body></html></x-embed>
+<div class="cabeca">
+<p class="olho a0">Questão (i) · Por que um remédio ganhou do outro</p>
+<h2 class="a1">A amarrada pede um desenho 50 vezes maior</h2>
+</div>
+<div class="corpo">
+<div class="palco"></div>
+<div class="coluna">
+<div class="cartao a2" style="border-top:8px solid #2E8B57;"><p class="rotulo" style="color:#2E6B47;">Fiscal × 100</p><p class="leg" style="font-size:26px;color:#16212E;">A rede desenha a própria resposta, que vai de 1 a 0: um tamanho confortável para ela.</p></div>
+<div class="cartao a3" style="border-top:8px solid #7A5BC2;"><p class="rotulo" style="color:#5B3FA0;">Curva amarrada</p><p class="leg" style="font-size:26px;color:#16212E;">Com y = 1 + s · N(s), a rede precisa desenhar N(s), que começa perto de −50 e sobe de repente.</p></div>
+<div class="cartao neutro a4"><p class="rotulo">Os botões giram devagar</p><p class="leg" style="font-size:26px;color:#16212E;">Cada passo do treino mexe cada botão só um pouquinho. Em 5 mil passos, a amarrada fez metade do caminho.</p></div>
+</div>
+</div>
+<aside>Por que dar mais peso ao fiscal do início funcionou tão melhor do que amarrar a curva? Os dois remédios tiram o atalho do zero, mas eles pedem desenhos muito diferentes para a rede. No fiscal vezes 100, a rede desenha a própria resposta, a curva verde, que vai de 1 até 0. Esse é um tamanho confortável para uma rede neural, e em umas 2 mil iterações ela já está em cima da resposta certa. Na curva amarrada, a resposta é montada como 1 mais s vezes N de s. A rede não desenha a resposta: ela desenha N de s, a curva roxa. Para a conta fechar, N de s precisa começar perto de menos 50 e subir de repente até perto de menos 3. É um desenho 50 vezes mais alto e muito mais íngreme. E o treino só consegue mexer cada botão um pouquinho a cada passo, então a rede vai descendo devagar: menos 1, menos 3, menos 7, menos 12, e em 5 mil iterações chegou a menos 23, metade do caminho. Ela não ficou presa; só não teve tempo. Por isso o erro final dela foi 0,19, contra 0,006 do fiscal vezes 100. Lição: além de tirar o atalho, a forma como a gente escreve a resposta muda o tamanho do desenho que a rede precisa aprender.</aside>
+</section>
