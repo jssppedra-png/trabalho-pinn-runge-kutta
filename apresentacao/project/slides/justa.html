@@ -1,0 +1,57 @@
+<section id="justa" data-transition="fade">
+<x-embed style="position:absolute;left:128px;top:320px;width:1040px;height:640px;"><!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0;overflow:hidden;background:transparent"><canvas id="c"></canvas><script>
+const c=document.getElementById('c'),g=c.getContext('2d');let W,H;
+function rs(){const d=2;W=innerWidth;H=innerHeight;c.width=W*d;c.height=H*d;c.style.width=W+'px';c.style.height=H+'px';g.setTransform(d,0,0,d,0,0)}rs();addEventListener('resize',rs);
+const F='system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif';
+// Questão (ii), y' = cos(20t): números de resultados/resultados.json
+const D=[['PINN',3.91e-4,'1 milhão','p'],['10⁻³',5.94e-3,'56','f'],['10⁻⁴',2.31e-3,'74','f'],['10⁻⁵',7.31e-5,'122'],['10⁻⁶',4.83e-6,'170'],
+['10⁻⁷',7.69e-7,'236'],['10⁻⁸',6.27e-8,'338'],['10⁻⁹',6.74e-9,'488'],['10⁻¹⁰',6.46e-10,'740','e']];
+const cl=a=>Math.max(0,Math.min(1,a)),lg=Math.log10,ease=a=>1-Math.pow(1-a,3);
+const L=190,R=20,T=110,TOP=-2,BOT=-11;let B;
+const Y=v=>T+(B-T)*(TOP-lg(v))/(TOP-BOT);
+const SW=()=>(W-L-R)/9.6,CX=i=>L+SW()*(i===0?0.5:1.6+(i-1));
+const INI=[1.0,1.9,4.4,4.85,5.3,5.75,6.2,6.65,7.1];
+const FR=['Contra um RK45 fraco, a PINN parece ganhar','Com a exigência certa, o RK45 vai muito além','Tolerância 10⁻¹⁰: 600 mil vezes menos erro'];
+function draw(s){B=H-120;g.clearRect(0,0,W,H);
+const et=s<4.2?0:s<8.2?1:2;
+g.strokeStyle='#C9C2B3';g.lineWidth=2;g.beginPath();g.moveTo(L,T-10);g.lineTo(L,B);g.lineTo(W-R,B);g.stroke();
+g.fillStyle='#4A5568';g.font='22px '+F;g.textAlign='right';
+for(const [v,l] of [[1e-3,'1 milésimo'],[1e-6,'1 milionésimo'],[1e-9,'1 bilionésimo']])g.fillText(l,L-12,Y(v)+8);
+g.textAlign='left';g.font='600 24px '+F;g.fillStyle='#4A5568';g.fillText('erro (altura da barra)',L-170,T-28);
+const bw=SW()*0.62;
+D.forEach((d,i)=>{const a=ease(cl((s-INI[i])/0.6));const x=CX(i);
+g.textAlign='center';g.fillStyle=d[3]==='p'?'#A8441A':'#16212E';g.font=(d[3]==='p'||d[3]==='e'?'600 ':'')+'24px '+F;g.fillText(d[0],x,B+32);
+g.fillStyle='#4A5568';g.font='22px '+F;g.fillText(d[2],x,B+60);
+if(a<=0)return;const yt=B-(B-Y(d[1]))*a;
+g.fillStyle=d[3]==='p'?'#E0662F':d[3]==='f'?'#9DBBEA':(d[3]==='e'&&s>8.2)?'#173F86':'#2563C9';
+g.fillRect(x-bw/2,yt,bw,B-yt)});
+g.textAlign='right';g.fillStyle='#4A5568';g.font='22px '+F;g.fillText('consultas',L-12,B+60);
+g.textAlign='left';g.fillStyle='#1D4FA3';g.font='600 24px '+F;g.fillText('RK45, cada vez mais exigente (tolerância) →',CX(1)-bw/2,B+104);
+const al=cl((s-2.7)/0.5);if(al>0){g.globalAlpha=al;const y=Y(3.91e-4);g.setLineDash([10,8]);g.strokeStyle='#A8441A';g.lineWidth=2.5;
+g.beginPath();g.moveTo(L,y);g.lineTo(W-R,y);g.stroke();g.setLineDash([]);
+g.fillStyle='#A8441A';g.font='600 24px '+F;g.textAlign='right';g.fillText('erro da PINN',W-R,y-12);g.globalAlpha=1}
+const af=cl((s-2.5)/0.5);if(af>0){g.globalAlpha=af;g.fillStyle='#4A5568';g.font='600 24px '+F;g.textAlign='left';
+g.fillText('RK45 fraco',CX(1)-bw/2,Y(5.94e-3)-14);g.globalAlpha=1}
+const ae=cl((s-8.4)/0.5);if(ae>0){g.globalAlpha=ae;g.fillStyle='#173F86';g.font='600 24px '+F;g.textAlign='center';
+g.fillText('enunciado',CX(8),Y(6.46e-10)-14);g.globalAlpha=1}
+const ac=cl((s-9.6)/0.5);if(ac>0){g.globalAlpha=ac;g.fillStyle='#16212E';g.font='600 26px '+F;g.textAlign='right';
+g.fillText('e com 740 consultas, contra 1 milhão',W-R,T+112);g.globalAlpha=1}
+g.fillStyle='#16212E';g.font='600 30px '+F;g.textAlign='left';g.fillText(FR[et],0,40);
+g.fillStyle='#E7E1D4';g.fillRect(0,56,W,6);g.fillStyle='#16212E';g.fillRect(0,56,W*cl(s/10.5),6)}
+let t0=null,lt=0;function fr(ts){if(t0===null||ts-lt>1500||ts-t0>14500)t0=ts;lt=ts;draw((ts-t0)/1000);requestAnimationFrame(fr)}requestAnimationFrame(fr);
+</script></body></html></x-embed>
+<div class="cabeca">
+<p class="olho a0">Como medimos · protocolo de McGreivy e Hakim (2024)</p>
+<h2 class="a1">Uma comparação justa: três regras</h2>
+</div>
+<div class="corpo">
+<div class="palco"></div>
+<div class="coluna">
+<div class="cartao neutro a2"><p class="rotulo">1 · Mesma exigência</p><p class="leg" style="font-size:26px;color:#16212E;">Tolerância do enunciado (10⁻¹⁰), não uma frouxa.</p></div>
+<div class="cartao neutro a3"><p class="rotulo">2 · Mesmo computador</p><p class="leg" style="font-size:26px;color:#16212E;">Mesma máquina, mesmo programa, um após o outro.</p></div>
+<div class="cartao neutro a4"><p class="rotulo">3 · Mesma régua de erro</p><p class="leg" style="font-size:26px;color:#16212E;">Maior erro em 1.000 pontos, mesma resposta certa.</p></div>
+<p class="pequeno a5">Por quê? Contra um RK45 frouxo, qualquer método novo parece bom.</p>
+</div>
+</div>
+<aside>McGreivy e Hakim, em 2024, olharam muitos artigos que dizem que a PINN ganha dos métodos clássicos e acharam um problema comum: o adversário era fraco. É como cronometrar um corredor novo contra um campeão que correu com o tênis desamarrado. Por isso seguimos três regras. Primeira, mesma exigência: o Runge–Kutta usa a tolerância do enunciado, 10 elevado a menos 10, e não uma tolerância frouxa; e ainda rodamos o RK45 com tolerâncias de 10 a menos 3 até 10 a menos 12, para ter a curva inteira. Segunda, mesmo computador: os dois métodos rodam na mesma máquina, no mesmo programa, um depois do outro; o tempo do RK45 é a mediana de 20 rodadas. Terceira, mesma régua: o maior erro numa grade de mil pontos, contra a mesma resposta certa. A animação mostra o perigo na questão (ii), a onda. A barra laranja é o erro da PINN. Se eu comparar com um RK45 fraco, de tolerância 10 a menos 3, a PINN parece ganhar: erra 15 vezes menos. Mas, quando o RK45 é mais exigente, as barras azuis despencam. Já com tolerância 10 a menos 5 ele erra menos que a PINN, e com a do enunciado erra 600 mil vezes menos, consultando a regra 740 vezes, contra um milhão da PINN. O exercício 3 aprofunda essa comparação.</aside>
+</section>

@@ -3,7 +3,7 @@
 Cópia de segurança dos slides publicados em https://claude.ai/artifact/HbjDY4XbhzEbuaLB1LVZTo
 (tipo "Slides" do Claude; o link é privado até ser compartilhado pelo menu Share da página).
 
-- `project/deck.json`: índice (título, ordem dos 15 slides, seções, fontes).
+- `project/deck.json`: índice (título, ordem dos 17 slides, seções, fontes).
 - `project/deck.css`: estilo comum a todos os slides (cores, letras, cartões, animações de entrada).
 - `project/slides/*.html`: um arquivo por slide. As animações vivas ficam dentro de `<x-embed>`,
   e o roteiro de fala fica no `<aside>` no fim de cada arquivo.
