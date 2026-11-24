@@ -17,7 +17,7 @@ consegue igualar um Runge–Kutta adaptativo em custo × precisão?
 ## Como rodar no Google Colab (sem instalar nada)
 
 Abra o notebook [`exercicio1_colab.ipynb`](https://colab.research.google.com/github/jssppedra-png/trabalho-pinn-runge-kutta/blob/main/exercicio1_colab.ipynb)
-no Colab e use *Ambiente de execução → Executar tudo*. Ele baixa o repositório, roda `exercicio1.py` e mostra a tabela
+no Colab e use *Ambiente de execução → Executar tudo*. Ele baixa o repositório, mostra e roda o código do exercício célula a célula e mostra a tabela
 e as figuras (o Colab pede login com uma conta Google). Testado no Colab: todas as células rodam sem erro. Os erros da
 PINN podem diferir dos de `resultados/` com outras versões do PyTorch, mas a conclusão é a mesma.
 
@@ -56,7 +56,7 @@ Leva cerca de 2 minutos numa CPU comum e gera tudo em `resultados/`:
 | Caminho | O que é |
 |---|---|
 | `exercicio1.py` | Script oficial: roda tudo e gera tabelas, figuras e números |
-| `exercicio1_colab.ipynb` | Notebook para o Google Colab: baixa o repositório, roda o script e mostra os resultados |
+| `exercicio1_colab.ipynb` | Notebook para o Google Colab: baixa o repositório, mostra e roda o código célula a célula e mostra os resultados |
 | `problemas.py` | Ficha dos três problemas (regra, ponto de partida, intervalo, resposta certa) e a régua de erro |
 | `rk.py` | RK45 do SciPy (referência). Sozinho: `python rk.py oscilante` |
 | `pinn.py` | A PINN, implementada pela equipe em PyTorch. Sozinho: `python pinn.py oscilante` |
